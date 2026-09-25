@@ -1,6 +1,24 @@
 @startuml kalastus
 left to right direction
 
+entity admin {
+  +id : int <<PK>>
+  username : string
+  pword : string
+}
+
+entity viikonBuffetRuokamenu {
+  +id : int <<PK>>
+  paiva : string
+  ruoka : string
+  paivamaara : datetime
+}
+
+entity viikonBuffetRuokajuomat {
+  Buffetid : int <<PK>>
+  juoma : string
+}
+
 entity ruokamenu {
   +id : int <<PK>>
   ruokalaji : string
@@ -39,9 +57,9 @@ entity tarjoukset {
   juoma : string
   hinta : int
 }
- 
+
 ' ' suhteet: kentästä kenttään
-' KALASTAJA::id ||--o{ TARPPI::kalastaja_id : saa
+viikonBuffetRuokamenu::id ||--o{ viikonBuffetRuokajuomat::Buffetid : saa
 ' VIEHE::id     ||--o{ TARPPI::viehe_id    : liittyy
 ' VAPA::id      ||--o{ TARPPI::vapa_id     : liittyy
 ' KALA::tarppi_id  }o--|| TARPPI::id     : liittyy
