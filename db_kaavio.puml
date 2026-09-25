@@ -1,0 +1,51 @@
+@startuml kalastus
+left to right direction
+
+entity ruokamenu {
+  +id : int <<PK>>
+  ruokalaji : string
+  ruoka : string
+  hinta : int
+}
+ 
+entity lastenmenu {
+  +id : int <<PK>>
+  ruoka : string
+  hinta : int <<FK>>
+}
+ 
+entity kylmatjuoma {
+  +id : int <<PK>>
+  juoma : string
+  hinta: int
+}
+ 
+entity kuumatjuoma {
+  +id : int <<PK>>
+  juoma : string
+  hinta: int
+}
+ 
+entity aukioloajat {
+  +id : int <<PK>>
+  paiva : string
+  kellonaika : datetime
+  paivamaara : datetime
+}
+ 
+entity tarjoukset {
+  +id : int <<PK>>
+  ruoka : string
+  juoma : string
+  hinta : int
+}
+ 
+' ' suhteet: kentästä kenttään
+' KALASTAJA::id ||--o{ TARPPI::kalastaja_id : saa
+' VIEHE::id     ||--o{ TARPPI::viehe_id    : liittyy
+' VAPA::id      ||--o{ TARPPI::vapa_id     : liittyy
+' KALA::tarppi_id  }o--|| TARPPI::id     : liittyy
+' ' TARPPI::id ||--|| KALA::tarppi_id : saa
+' LAJI::id   ||--o{ KALA::laji_id   : liittyy
+ 
+@enduml
