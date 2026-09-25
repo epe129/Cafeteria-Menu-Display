@@ -10,6 +10,6 @@ include_once('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php'
     <title>Document</title>
 </head>
 <body>
-    drinks
+    open hours
 </body>
 </html>

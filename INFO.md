@@ -3,10 +3,24 @@
 - admin can add new thing to the menus.
 - user display is just basic cafeteria menu displays gets the data from db.
 
-pade 1: buffet
-page 2: food menu and kids menu
-page 3: drinks menus
+#
 
+- page 1: buffet
+- page 2: food menu and kids menu
+- page 3: drinks menus
+- page 4: open hours
+
+## teknologias:
+### DATABASE:
+- SQL
+- XAMPP
+- phpMyadmin
+### BACKEND:
+- Flask
+- python
+- python libraries
+### FRONDEND:
+- php
 
 ## Project structure:
 ###    SQL DATABSE
