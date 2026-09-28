@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, redirect
 from flask_session import Session
 from flask_wtf import FlaskForm, CSRFProtect
-from wtforms import StringField, SubmitField, PasswordField, IntegerField
+from wtforms import StringField, SubmitField, PasswordField, IntegerField, DateField
 from wtforms.validators import DataRequired
 import pymysql
 import bcrypt
@@ -24,10 +24,35 @@ class LoginForm(FlaskForm):
     Pword = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
-class add_drink(FlaskForm):
+class add_drink_form(FlaskForm):
     juoma = StringField('juoma', validators=[DataRequired()])
     hinta = IntegerField('hinta', validators=[DataRequired()])
     tyyppi = StringField('tyyppi', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+class add_food_form(FlaskForm):
+    ruokalaji = StringField('ruokalaji', validators=[DataRequired()])
+    ruoka = StringField('ruoka', validators=[DataRequired()])
+    ainekset = StringField('ainekset', validators=[DataRequired()])               
+    hinta = IntegerField('hinta', validators=[DataRequired()])
+    tyyppi = StringField('tyyppi', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+class add_sale_form(FlaskForm):
+    ruoka = StringField('ruoka', validators=[DataRequired()])
+    juoma = StringField('juoma', validators=[DataRequired()])               
+    hinta = IntegerField('hinta', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+class add_buffetfood_form(FlaskForm):
+    ruoka = StringField('ruoka', validators=[DataRequired()])
+    paivamaara = DateField('paivamaara', validators=[DataRequired()])
+    ainekset = StringField('ainekset', validators=[DataRequired()])               
+    submit = SubmitField('Submit')
+
+class add_drinkbuffet_form(FlaskForm):
+    juoma = StringField('juoma', validators=[DataRequired()])               
+    paivamaara = DateField('paivamaara', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 # login page
@@ -59,22 +84,68 @@ def login():
             return render_template("login.html", form=form, text=text)
     return render_template("login.html", form=form)
 
-# admin page
+# admin page 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
     # if logged in shows the pages
     if not session.get("Username"):
         return redirect("/")
-    adddrink = add_drink()
-    return render_template("add.html", adddrink=adddrink)
+    adddrink = add_drink_form()
+    addfood = add_food_form()
+    addsale = add_sale_form()
+    addbuffetfood = add_buffetfood_form()
+    addbuffetdrink = add_drinkbuffet_form()
+    return render_template("add.html", adddrink=adddrink, addfood=addfood, addsale=addsale, addbuffetfood=addbuffetfood, addbuffetdrink=addbuffetdrink)
 
 @app.route('/add_hot_drink', methods=['GET', 'POST'])
-def add_hot_drink():
+def add_drink():
     if request.method == "POST":
         juoma = request.form.get("juoma")
         hinta = request.form.get("hinta")
         tyyppi = request.form.get("tyyppi")
     cursor.execute("INSERT INTO juomat (juoma, hinta, tyyppi)  VALUES (%s, %s, %s)", (juoma, hinta, tyyppi))
+    connection.commit()
+    return redirect("/add")
+
+@app.route('/add_food', methods=['GET', 'POST'])
+def add_food():
+    if request.method == "POST":
+        ruokalaji = request.form.get("ruokalaji")
+        ruoka = request.form.get("ruoka")
+        ainekset = request.form.get("ainekset")
+        hinta = request.form.get("hinta")
+        tyyppi = request.form.get("tyyppi")
+    cursor.execute("INSERT INTO ruokamenu (ruokalaji, ruoka, ainekset, hinta, tyyppi)  VALUES (%s, %s, %s, %s, %s)", (ruokalaji, ruoka, ainekset, hinta, tyyppi))
+    connection.commit()
+    return redirect("/add")
+
+@app.route('/add_sale', methods=['GET', 'POST'])
+def add_sale():
+    if request.method == "POST":
+        ruoka = request.form.get("ruoka")
+        juoma = request.form.get("juoma")
+        hinta = request.form.get("hinta")
+    cursor.execute("INSERT INTO tarjoukset (ruoka, juoma, hinta)  VALUES (%s, %s, %s)", (ruoka, juoma, hinta))
+    connection.commit()
+    return redirect("/add")
+
+@app.route('/add_buffet_food', methods=['GET', 'POST'])
+def add_buffet_food():
+    if request.method == "POST":
+        ruoka = request.form.get("ruoka")
+        paivamaara = request.form.get("paivamaara")
+        ainekset = request.form.get("ainekset")
+
+    cursor.execute("INSERT INTO viikonbuffetruokamenu (ruoka, paivamaara, ainekset)  VALUES (%s, %s, %s)", (ruoka, paivamaara, ainekset))
+    connection.commit()
+    return redirect("/add")
+
+@app.route('/add_buffet_drink', methods=['GET', 'POST'])
+def add_buffet_drink():
+    if request.method == "POST":
+        juoma = request.form.get("juoma")
+        paivamaara = request.form.get("paivamaara")
+    cursor.execute("INSERT INTO viikonbuffetruokajuomat (juoma, paivamaara)  VALUES (%s, %s)", (juoma, paivamaara))
     connection.commit()
     return redirect("/add")
 

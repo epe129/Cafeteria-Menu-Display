@@ -21,6 +21,7 @@
         }
 
         .main-content div {
+            width: 33%;
             background: white;
             padding: 24px;
             border-radius: 8px;
@@ -87,7 +88,7 @@
     {% block content %}
         <div class="main-content">
             <div>
-                <form method="POST" action="{{ url_for('add_hot_drink')}}">
+                <form method="POST" action="{{ url_for('add_drink')}}">
                     {{ adddrink.hidden_tag() }}  
                     <label for="data">Lisää kuumajuoma:</label>
                     <br/>
@@ -97,65 +98,81 @@
                     <label name="hinta">hinta:</label>
                     {{ adddrink.hinta() }}  
                     <br/>
-                    <label name="hinta">tyyppi:</label>
+                    <label name="tyyppi">tyyppi:</label>
                     {{ adddrink.tyyppi() }}  
                     <br/>
                     {{ adddrink.submit() }}  
                 </form>
             </div>
             <div>
-                <form method="POST" >
-                    <label for="data">Lisää lasten ruoka:</label>
-                    <br/>
-                    <input type="text" placeholder="nimi">  
-                    <br/>
-                    <input type="number" placeholder="hinta">
-                    <br/>
-                    <button type="submit">Poista</button>
-                </form>
-            </div>
-            <div>
-                <form method="POST" >
+                <form method="POST" action="{{ url_for('add_food')}}">
+                    {{ addfood.hidden_tag() }}  
                     <label for="data">Lisää ruoka:</label>
                     <br/>
-                    <input type="text" placeholder="nimi">  
+                    <label name="ruokalaji">ruokalaji:</label>
+                    {{ addfood.ruokalaji() }}  
                     <br/>
-                    <input type="number" placeholder="hinta">
+                    <label name="ruoka">ruoka:</label>
+                    {{ addfood.ruoka() }}  
                     <br/>
-                    <button type="submit">Poista</button>
+                    <label name="ainekset">ainekset:</label>
+                    {{ addfood.ainekset() }}  
+                    <br/>
+                    <label name="hinta">hinta:</label>
+                    {{ addfood.hinta() }}  
+                    <br/>
+                    <label name="tyyppi">tyyppi:</label>
+                    {{ addfood.tyyppi() }}  
+                    <br/>
+                    {{ addfood.submit() }}  
                 </form>
             </div>
             <div>
-                <form method="POST" >
+                <form method="POST" action="{{ url_for('add_sale')}}">
+                    {{ addsale.hidden_tag() }}  
                     <label for="data">Lisää tarjous:</label>
                     <br/>
-                    <input type="text" placeholder="nimi">  
+                    <label name="ruoka">ruoka:</label>
+                    {{ addsale.ruoka() }}  
                     <br/>
-                    <input type="number" placeholder="hinta">
+                    <label name="juoma">juoma:</label>
+                    {{ addsale.juoma() }}  
                     <br/>
-                    <button type="submit">Poista</button>
+                    <label name="hinta">hinta:</label>
+                    {{ addsale.hinta() }}  
+                    <br/>
+                    {{ addsale.submit() }}  
                 </form>
             </div>
             <div>
-                <form method="POST" >
+                <form method="POST" action="{{ url_for('add_buffet_food')}}">
+                    {{ addbuffetfood.hidden_tag() }}  
                     <label for="data">Lisää buffet ruoka:</label>
                     <br/>
-                    <input type="text" placeholder="nimi">  
+                    <label name="ruoka">ruoka:</label>
+                    {{ addbuffetfood.ruoka() }}  
                     <br/>
-                    <input type="number" placeholder="hinta">
+                    <label name="paivamaara">paivamaara:</label>
+                    {{ addbuffetfood.paivamaara() }}  
                     <br/>
-                    <button type="submit">Poista</button>
+                    <label name="ainekset">ainekset:</label>
+                    {{ addbuffetfood.ainekset() }}  
+                    <br/>
+                    {{ addbuffetfood.submit() }}  
                 </form>
             </div>
             <div>
-                <form method="POST" >
+                <form method="POST" action="{{ url_for('add_buffet_drink')}}">
                     <label for="data">Lisää buffet juoma:</label>
+                    {{ addbuffetdrink.hidden_tag() }}  
                     <br/>
-                    <input type="text" placeholder="nimi">  
+                    <label name="juoma">juoma:</label>
+                    {{ addbuffetdrink.juoma() }}  
                     <br/>
-                    <input type="number" placeholder="hinta">
+                    <label name="paivamaara">paivamaara:</label>
+                    {{ addbuffetdrink.paivamaara() }}  
                     <br/>
-                    <button type="submit">Poista</button>
+                    {{ addbuffetdrink.submit() }}  
                 </form>
             </div>
         </div>

@@ -16,7 +16,11 @@ Admin have a login and admin can add, delete and change the database values.
 - python libraries
 ### FRONDEND:
 - php
- 
+
+## Install requirements to python
+    pip install -r requirements.txt
+
+
 --------------------------------------------------------------------------------
 
 ###    BACKEND:

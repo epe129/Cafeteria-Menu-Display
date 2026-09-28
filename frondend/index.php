@@ -6,7 +6,7 @@
     <title>Menu</title>
 </head>
 <body>
-    // pages are shown in the dia show
+    <!-- pages are shown in the dia show -->
     <div id="1">
         <?php
         include './pages/buffetMenu.php';
