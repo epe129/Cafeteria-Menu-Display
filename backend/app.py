@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, redirect
 from flask_session import Session
 from flask_wtf import FlaskForm, CSRFProtect
-from wtforms import StringField, SubmitField, PasswordField
+from wtforms import StringField, SubmitField, PasswordField, IntegerField
 from wtforms.validators import DataRequired
 import pymysql
 import bcrypt
@@ -24,6 +24,12 @@ class LoginForm(FlaskForm):
     Pword = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
+class add_drink(FlaskForm):
+    juoma = StringField('juoma', validators=[DataRequired()])
+    hinta = IntegerField('hinta', validators=[DataRequired()])
+    tyyppi = StringField('tyyppi', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
 # login page
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -41,7 +47,7 @@ def login():
                 if bcrypt.checkpw(Pword.encode('utf8'), getData[0][1].encode('utf8')):
                     print("correct")
                     session["Username"] = getData[0][0]
-                    return redirect("/admin")
+                    return redirect("/add")
                 else:
                     text="Username or password is wrong"
                     return render_template("login.html", form=form, text=text)
@@ -54,15 +60,23 @@ def login():
     return render_template("login.html", form=form)
 
 # admin page
-@app.route('/admin', methods=['GET', 'POST'])
-def admin():
+@app.route('/add', methods=['GET', 'POST'])
+def add():
     # if logged in shows the pages
     if not session.get("Username"):
         return redirect("/")
-    cursor.execute(f"SELECT username, pword FROM admin")
-    getData = cursor.fetchall()
-    
-    return render_template("admin.html")
+    adddrink = add_drink()
+    return render_template("add.html", adddrink=adddrink)
+
+@app.route('/add_hot_drink', methods=['GET', 'POST'])
+def add_hot_drink():
+    if request.method == "POST":
+        juoma = request.form.get("juoma")
+        hinta = request.form.get("hinta")
+        tyyppi = request.form.get("tyyppi")
+    cursor.execute("INSERT INTO juomat (juoma, hinta, tyyppi)  VALUES (%s, %s, %s)", (juoma, hinta, tyyppi))
+    connection.commit()
+    return redirect("/add")
 
 if __name__ == '__main__':
     app.run()

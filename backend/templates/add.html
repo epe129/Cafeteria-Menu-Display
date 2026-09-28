@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #2c2c2c;
+            color: #222;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main-content div {
+            background: white;
+            padding: 24px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin: 10px;   
+            overflow: hidden;
+            background-color: #3d3d3d;
+        }
+         .main-content form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .main-content label {
+            font-weight: 600;
+            color: white;
+            font-size: 14px;
+        }
+
+        .main-content select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: white;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .main-content select:hover {
+            border-color: #999;
+        }
+
+        .main-content select:focus {
+            outline: none;
+            border-color: #0066cc;
+            box-shadow: 0 0 4px rgba(0, 102, 204, 0.3);
+        }
+
+        #submit {
+            padding: 10px 16px;
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        #submit:hover {
+            background-color: #c9302c;
+        }
+
+        #submit:active {
+            background-color: #ac2925;
+        }
+    </style>
+</head>
+<body>
+    {% extends "navbar.html" %}
+    {% block content %}
+        <div class="main-content">
+            <div>
+                <form method="POST" action="{{ url_for('add_hot_drink')}}">
+                    {{ adddrink.hidden_tag() }}  
+                    <label for="data">Lisää kuumajuoma:</label>
+                    <br/>
+                    <label name="juoma">juoma:</label>
+                    {{ adddrink.juoma() }}  
+                    <br/>
+                    <label name="hinta">hinta:</label>
+                    {{ adddrink.hinta() }}  
+                    <br/>
+                    <label name="hinta">tyyppi:</label>
+                    {{ adddrink.tyyppi() }}  
+                    <br/>
+                    {{ adddrink.submit() }}  
+                </form>
+            </div>
+            <div>
+                <form method="POST" >
+                    <label for="data">Lisää lasten ruoka:</label>
+                    <br/>
+                    <input type="text" placeholder="nimi">  
+                    <br/>
+                    <input type="number" placeholder="hinta">
+                    <br/>
+                    <button type="submit">Poista</button>
+                </form>
+            </div>
+            <div>
+                <form method="POST" >
+                    <label for="data">Lisää ruoka:</label>
+                    <br/>
+                    <input type="text" placeholder="nimi">  
+                    <br/>
+                    <input type="number" placeholder="hinta">
+                    <br/>
+                    <button type="submit">Poista</button>
+                </form>
+            </div>
+            <div>
+                <form method="POST" >
+                    <label for="data">Lisää tarjous:</label>
+                    <br/>
+                    <input type="text" placeholder="nimi">  
+                    <br/>
+                    <input type="number" placeholder="hinta">
+                    <br/>
+                    <button type="submit">Poista</button>
+                </form>
+            </div>
+            <div>
+                <form method="POST" >
+                    <label for="data">Lisää buffet ruoka:</label>
+                    <br/>
+                    <input type="text" placeholder="nimi">  
+                    <br/>
+                    <input type="number" placeholder="hinta">
+                    <br/>
+                    <button type="submit">Poista</button>
+                </form>
+            </div>
+            <div>
+                <form method="POST" >
+                    <label for="data">Lisää buffet juoma:</label>
+                    <br/>
+                    <input type="text" placeholder="nimi">  
+                    <br/>
+                    <input type="number" placeholder="hinta">
+                    <br/>
+                    <button type="submit">Poista</button>
+                </form>
+            </div>
+        </div>
+    {% endblock %}
+</body>
+</html>

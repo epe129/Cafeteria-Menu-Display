@@ -39,10 +39,10 @@ def db():
         "( id INT AUTO_INCREMENT PRIMARY KEY NOT NULL UNIQUE, ruokalaji VARCHAR(250), ruoka VARCHAR(250), hinta int);")
         cursor.execute("CREATE TABLE IF NOT EXISTS lastenmenu"
         "( id INT AUTO_INCREMENT PRIMARY KEY NOT NULL UNIQUE, ruokalaji VARCHAR(250), ruoka VARCHAR(250), hinta int);")
-        cursor.execute("CREATE TABLE IF NOT EXISTS kylmatjuoma"
-        "( id INT AUTO_INCREMENT PRIMARY KEY NOT NULL UNIQUE, juoma VARCHAR(250), hinta int);")
-        cursor.execute("CREATE TABLE IF NOT EXISTS kuumatjuoma"
-        "( id INT AUTO_INCREMENT PRIMARY KEY NOT NULL UNIQUE, juoma VARCHAR(250), hinta int);")
+        cursor.execute("CREATE TABLE IF NOT EXISTS juomat"
+        "( id INT AUTO_INCREMENT PRIMARY KEY NOT NULL UNIQUE, juoma VARCHAR(250), hinta int, tyyppi VARCHAR(250));")
+        # cursor.execute("CREATE TABLE IF NOT EXISTS kuumatjuoma"
+        # "( id INT AUTO_INCREMENT PRIMARY KEY NOT NULL UNIQUE, juoma VARCHAR(250), hinta int);")
         cursor.execute("CREATE TABLE IF NOT EXISTS aukioloajat"
         "( id INT AUTO_INCREMENT PRIMARY KEY NOT NULL UNIQUE, paiva VARCHAR(250), kellonaika VARCHAR(250), paivamaara datetime);")
         cursor.execute("CREATE TABLE IF NOT EXISTS tarjoukset"
