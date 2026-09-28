@@ -59,3 +59,4 @@ id, username, pword
 ####    FRONDEND(user site):
 - index.php the menu display
 - connect_dp.php create the connection to db
+- pages includes all the menu pages
