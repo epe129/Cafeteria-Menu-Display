@@ -119,10 +119,7 @@
                     {{ addfood.ainekset() }}  
                     <br/>
                     <label name="hinta">hinta:</label>
-                    {{ addfood.hinta() }}  
-                    <br/>
-                    <label name="tyyppi">tyyppi:</label>
-                    {{ addfood.tyyppi() }}  
+                    {{ addfood.hinta() }}   
                     <br/>
                     {{ addfood.submit() }}  
                 </form>
@@ -158,21 +155,10 @@
                     <label name="ainekset">ainekset:</label>
                     {{ addbuffetfood.ainekset() }}  
                     <br/>
+                    <label name="juomat">juomat:</label>
+                    {{ addbuffetfood.juomat() }}  
+                    <br/>
                     {{ addbuffetfood.submit() }}  
-                </form>
-            </div>
-            <div>
-                <form method="POST" action="{{ url_for('add_buffet_drink')}}">
-                    <label for="data">Lisää buffet juoma:</label>
-                    {{ addbuffetdrink.hidden_tag() }}  
-                    <br/>
-                    <label name="juoma">juoma:</label>
-                    {{ addbuffetdrink.juoma() }}  
-                    <br/>
-                    <label name="paivamaara">paivamaara:</label>
-                    {{ addbuffetdrink.paivamaara() }}  
-                    <br/>
-                    {{ addbuffetdrink.submit() }}  
                 </form>
             </div>
         </div>

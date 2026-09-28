@@ -26,25 +26,16 @@
 ###    SQL DATABSE
 
 #### admin
-id, username, pword
+    id, username, pword
 
 #### viikon Buffet Ruokamenu
-    id, paiva, ruoka, paivamaara
-
-#### viikon Buffet Ruokajuomat
-    Buffetid, juoma
+    id, ruoka, paivamaara, ainekset, juomat
 
 ####        ruoka menu
-    id, ruokalaji, ruoka, hinta
+    id, ruokalaji, ruoka, ainekset, hinta
 
-####        lasten menu
-    id, ruokalaji, ruoka, hinta
-
-####        kylmätjuoma
-    id, juoma, hinta
-
-####       kuumatjuoma
-    id, juoma, hinta
+####        juomat
+    id, juoma, hinta, tyyppi
 
 ####        aukioloajat
     id, paiva, kellonaika, paivamaara

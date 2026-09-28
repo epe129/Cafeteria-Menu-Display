@@ -40,27 +40,16 @@ Admin have a login and admin can add, delete and change the database values.
     id, username, pword
 
 #### viikon Buffet Ruokamenu
-    id, paiva, ruoka, paivamaara
-
-#### viikon Buffet Ruokajuomat
-    Buffetid, juoma
+    id, ruoka, paivamaara, ainekset, juomat
 
 ####        ruoka menu
-    id, ruokalaji, ruoka, hinta
+    id, ruokalaji, ruoka, ainekset, hinta
 
-####        lasten menu
-    id, ruokalaji, ruoka, hinta
-
-####        kylmätjuoma
-    id, juoma, hinta
-
-####       kuumatjuoma
-    id, juoma, hinta
+####        juomat
+    id, juoma, hinta, tyyppi
 
 ####        aukioloajat
     id, paiva, kellonaika, paivamaara
 
 ####        tarjoukset
     id, ruoka, juoma, hinta
-
-![alt text](/dbkuva.png)

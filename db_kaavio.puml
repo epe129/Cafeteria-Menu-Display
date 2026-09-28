@@ -12,36 +12,22 @@ entity viikonBuffetRuokamenu {
   paiva : string
   ruoka : string
   paivamaara : datetime
-}
-
-entity viikonBuffetRuokajuomat {
-  Buffetid : int <<PK>>
-  juoma : string
+  juomat : string
 }
 
 entity ruokamenu {
   +id : int <<PK>>
   ruokalaji : string
   ruoka : string
+  ainekset: string
   hinta : int
 }
- 
-entity lastenmenu {
-  +id : int <<PK>>
-  ruoka : string
-  hinta : int <<FK>>
-}
- 
-entity kylmatjuoma {
+
+entity juomat {
   +id : int <<PK>>
   juoma : string
   hinta: int
-}
- 
-entity kuumatjuoma {
-  +id : int <<PK>>
-  juoma : string
-  hinta: int
+  tyyppi: string
 }
  
 entity aukioloajat {
@@ -57,13 +43,5 @@ entity tarjoukset {
   juoma : string
   hinta : int
 }
-
-' ' suhteet: kentästä kenttään
-viikonBuffetRuokamenu::id ||--o{ viikonBuffetRuokajuomat::Buffetid : saa
-' VIEHE::id     ||--o{ TARPPI::viehe_id    : liittyy
-' VAPA::id      ||--o{ TARPPI::vapa_id     : liittyy
-' KALA::tarppi_id  }o--|| TARPPI::id     : liittyy
-' ' TARPPI::id ||--|| KALA::tarppi_id : saa
-' LAJI::id   ||--o{ KALA::laji_id   : liittyy
  
 @enduml

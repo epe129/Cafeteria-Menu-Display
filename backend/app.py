@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, redirect
 from flask_session import Session
 from flask_wtf import FlaskForm, CSRFProtect
-from wtforms import StringField, SubmitField, PasswordField, IntegerField, DateField
+from wtforms import StringField, SubmitField, PasswordField, IntegerField, DateField, SelectField
 from wtforms.validators import DataRequired
 import pymysql
 import bcrypt
@@ -27,7 +27,13 @@ class LoginForm(FlaskForm):
 class add_drink_form(FlaskForm):
     juoma = StringField('juoma', validators=[DataRequired()])
     hinta = IntegerField('hinta', validators=[DataRequired()])
-    tyyppi = StringField('tyyppi', validators=[DataRequired()])
+    tyyppi = SelectField('tyyppi',  
+        choices=[
+            ('kylmajuoma', 'kylmajuoma'),
+            ('kuumajuomja', 'kuumajuomja'),
+        ], 
+        validators=[DataRequired()]
+        )
     submit = SubmitField('Submit')
 
 class add_food_form(FlaskForm):
@@ -35,7 +41,6 @@ class add_food_form(FlaskForm):
     ruoka = StringField('ruoka', validators=[DataRequired()])
     ainekset = StringField('ainekset', validators=[DataRequired()])               
     hinta = IntegerField('hinta', validators=[DataRequired()])
-    tyyppi = StringField('tyyppi', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 class add_sale_form(FlaskForm):
@@ -48,11 +53,7 @@ class add_buffetfood_form(FlaskForm):
     ruoka = StringField('ruoka', validators=[DataRequired()])
     paivamaara = DateField('paivamaara', validators=[DataRequired()])
     ainekset = StringField('ainekset', validators=[DataRequired()])               
-    submit = SubmitField('Submit')
-
-class add_drinkbuffet_form(FlaskForm):
-    juoma = StringField('juoma', validators=[DataRequired()])               
-    paivamaara = DateField('paivamaara', validators=[DataRequired()])
+    juomat = StringField('juomat', validators=[DataRequired()])               
     submit = SubmitField('Submit')
 
 # login page
@@ -94,8 +95,7 @@ def add():
     addfood = add_food_form()
     addsale = add_sale_form()
     addbuffetfood = add_buffetfood_form()
-    addbuffetdrink = add_drinkbuffet_form()
-    return render_template("add.html", adddrink=adddrink, addfood=addfood, addsale=addsale, addbuffetfood=addbuffetfood, addbuffetdrink=addbuffetdrink)
+    return render_template("add.html", adddrink=adddrink, addfood=addfood, addsale=addsale, addbuffetfood=addbuffetfood)
 
 @app.route('/add_hot_drink', methods=['GET', 'POST'])
 def add_drink():
@@ -114,8 +114,7 @@ def add_food():
         ruoka = request.form.get("ruoka")
         ainekset = request.form.get("ainekset")
         hinta = request.form.get("hinta")
-        tyyppi = request.form.get("tyyppi")
-    cursor.execute("INSERT INTO ruokamenu (ruokalaji, ruoka, ainekset, hinta, tyyppi)  VALUES (%s, %s, %s, %s, %s)", (ruokalaji, ruoka, ainekset, hinta, tyyppi))
+    cursor.execute("INSERT INTO ruokamenu (ruokalaji, ruoka, ainekset, hinta, tyyppi)  VALUES (%s, %s, %s, %s)", (ruokalaji, ruoka, ainekset, hinta))
     connection.commit()
     return redirect("/add")
 
@@ -135,17 +134,8 @@ def add_buffet_food():
         ruoka = request.form.get("ruoka")
         paivamaara = request.form.get("paivamaara")
         ainekset = request.form.get("ainekset")
-
-    cursor.execute("INSERT INTO viikonbuffetruokamenu (ruoka, paivamaara, ainekset)  VALUES (%s, %s, %s)", (ruoka, paivamaara, ainekset))
-    connection.commit()
-    return redirect("/add")
-
-@app.route('/add_buffet_drink', methods=['GET', 'POST'])
-def add_buffet_drink():
-    if request.method == "POST":
-        juoma = request.form.get("juoma")
-        paivamaara = request.form.get("paivamaara")
-    cursor.execute("INSERT INTO viikonbuffetruokajuomat (juoma, paivamaara)  VALUES (%s, %s)", (juoma, paivamaara))
+        juomat = request.form.get("juomat")
+    cursor.execute("INSERT INTO viikonbuffetruokamenu (ruoka, paivamaara, ainekset, juomat)  VALUES (%s, %s, %s, %s)", (ruoka, paivamaara, ainekset, juomat))
     connection.commit()
     return redirect("/add")
 
