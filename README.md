@@ -4,7 +4,7 @@ Pages where user can see the cafeteria menu in slide show.
 Admin have a login and admin can add, delete and change the database values.
 
 
-## teknologias:
+## Teknologias:
 
 ### DATABASE:
 - SQL
@@ -58,7 +58,5 @@ Admin have a login and admin can add, delete and change the database values.
 
 ####        tarjoukset
     id, ruoka, juoma, hinta
-
---------------------------------------------------------------------------------
 
 ![alt text](/dbkuva.png)

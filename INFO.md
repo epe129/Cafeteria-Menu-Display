@@ -3,7 +3,7 @@
 - admin can add new thing to the menus.
 - user display is just basic cafeteria menu displays gets the data from db.
 
-#
+--------------------------------------------------------------------------------
 
 - page 1: buffet
 - page 2: food menu and kids menu

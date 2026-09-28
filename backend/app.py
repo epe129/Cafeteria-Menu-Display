@@ -59,6 +59,9 @@ def admin():
     # if logged in shows the pages
     if not session.get("Username"):
         return redirect("/")
+    cursor.execute(f"SELECT username, pword FROM admin")
+    getData = cursor.fetchall()
+    
     return render_template("admin.html")
 
 if __name__ == '__main__':

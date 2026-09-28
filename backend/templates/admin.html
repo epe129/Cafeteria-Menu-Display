@@ -6,6 +6,30 @@
     <title>Admin</title>
 </head>
 <body>
-    
+    {% extends "navbar.html" %}
+    {% block content %}
+        <div>
+            <form method="POST" >
+                <label for="data">Lisää kuumajuoma:</label>
+                <br/>
+                <input type="text" placeholder="nimi">  
+                <br/>
+                <input type="number" placeholder="hinta">
+                <br/>
+                <button type="submit">Poista</button>
+            </form>
+        </div>
+        <div>
+            <form method="POST" >
+                <label for="data">Lisää kylmäjuoma:</label>
+                <br/>
+                <input type="text" placeholder="nimi">  
+                <br/>
+                <input type="number" placeholder="hinta">
+                <br/>
+                <button type="submit">Poista</button>
+            </form>
+        </div>
+    {% endblock %}
 </body>
 </html>
