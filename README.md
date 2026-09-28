@@ -33,7 +33,7 @@ Admin have a login and admin can add, delete and change the database values.
 ###    SQL DATABSE
 
 #### admin
-id, username, pword
+    id, username, pword
 
 #### viikon Buffet Ruokamenu
     id, paiva, ruoka, paivamaara
