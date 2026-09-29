@@ -139,7 +139,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
                 echo "<div class='aikataulut'>";
                 echo $row["paiva"]. " " . $row["kellonaika"] . "<br>";   
                 echo "<br/>";
-                echo date("l", strtotime($row["paivamaara"]));   
+                echo $row["paivamaara"];   
                 echo "</div>";
             }
         } else {
