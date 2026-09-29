@@ -126,22 +126,22 @@
             </div>
             <div>
                 <form method="POST" action="{{ url_for('add_lounas_food')}}">
-                    {{ addbuffetfood.hidden_tag() }}  
+                    {{ addlounasfood.hidden_tag() }}  
                     <label for="data">Lisää lounas:</label>
                     <br/>
                     <label name="ruoka">ruoka:</label>
-                    {{ addbuffetfood.ruoka() }}  
+                    {{ addlounasfood.ruoka() }}  
                     <br/>
                     <label name="paivamaara">paivamaara:</label>
-                    {{ addbuffetfood.paivamaara() }}  
+                    {{ addlounasfood.paivamaara() }}  
                     <br/>
                     <label name="ainekset">ainekset:</label>
-                    {{ addbuffetfood.ainekset() }}  
+                    {{ addlounasfood.ainekset() }}  
                     <br/>
                     <label name="juomat">juomat:</label>
-                    {{ addbuffetfood.juomat() }}  
+                    {{ addlounasfood.juomat() }}  
                     <br/>
-                    {{ addbuffetfood.submit() }}  
+                    {{ addlounasfood.submit() }}  
                 </form>
             </div>
         </div>

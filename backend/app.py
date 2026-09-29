@@ -50,6 +50,27 @@ class add_lounas_form(FlaskForm):
     juomat = StringField('juomat', validators=[DataRequired()])               
     submit = SubmitField('Submit')
 
+class poista_drink_form(FlaskForm):
+    juomat = SelectField('Poista juoma',  
+        choices=[], 
+        validators=[DataRequired()]
+        )
+    submit = SubmitField('Submit')
+
+class poista_ruoka_form(FlaskForm):
+    ruoka = SelectField('Poista ruoka',  
+        choices=[], 
+        validators=[DataRequired()]
+        )
+    submit = SubmitField('Submit')
+
+class poista_lounas_form(FlaskForm):
+    lounas = SelectField('Poista lounas',  
+        choices=[], 
+        validators=[DataRequired()]
+        )
+    submit = SubmitField('Submit')
+
 # login page
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -121,6 +142,60 @@ def add_lounas_food():
     cursor.execute("INSERT INTO viikonlounasRuokamenu (ruoka, paivamaara, ainekset, juomat)  VALUES (%s, %s, %s, %s)", (ruoka, paivamaara, ainekset, juomat))
     connection.commit()
     return redirect("/add")
+
+
+@app.route('/delete', methods=['GET', 'POST'])
+def delete():
+    cursor.execute("SELECT id, juoma, hinta FROM juomat")
+    getDataJuoma = cursor.fetchall()
+    poista_drink = poista_drink_form()
+    poista_drink.juomat.choices = [
+        (str(id), f"{id}, {juoma}, {hinta}")
+        for id, juoma, hinta in getDataJuoma
+    ]
+    cursor.execute("SELECT id, ruoka FROM ruokamenu")
+    getDataRuoka = cursor.fetchall()
+    poista_Ruoka = poista_ruoka_form()
+    poista_Ruoka.ruoka.choices = [
+        (str(id), f"{id}, {ruoka}")
+        for id, ruoka in getDataRuoka
+    ]
+    cursor.execute("SELECT id, ruoka, paivamaara FROM viikonlounasruokamenu")
+    getDataLounas = cursor.fetchall()
+    poista_Lounas = poista_lounas_form()
+    poista_Lounas.lounas.choices = [
+        (str(id), f"{id}, {ruoka}, {paivamaara}")
+        for id, ruoka, paivamaara in getDataLounas
+    ]
+            
+    return render_template("delete.html",  poista_drink=poista_drink, poista_Ruoka=poista_Ruoka, poista_Lounas=poista_Lounas)
+
+@app.route('/delete_drink', methods=['GET', 'POST'])
+def delete_drink():
+    if request.method == "POST":
+        juomat = request.form.get("juomat")
+        print(juomat)
+        cursor.execute(f"DELETE FROM juomat WHERE id='{juomat}';")
+        connection.commit()
+    return redirect("/delete")
+
+@app.route('/delete_ruoka', methods=['GET', 'POST'])
+def delete_ruoka():
+    if request.method == "POST":
+        ruoka = request.form.get("ruoka")
+        print(ruoka)
+        cursor.execute(f"DELETE FROM ruokamenu WHERE id='{ruoka}';")
+        connection.commit()
+    return redirect("/delete")
+
+@app.route('/delete_lounas', methods=['GET', 'POST'])
+def delete_lounas():
+    if request.method == "POST":
+        lounas = request.form.get("lounas")
+        print(lounas)
+        cursor.execute(f"DELETE FROM viikonlounasruokamenu WHERE id='{lounas}';")
+        connection.commit()
+    return redirect("/delete")
 
 if __name__ == '__main__':
     app.run()
