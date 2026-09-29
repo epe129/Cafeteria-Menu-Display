@@ -90,7 +90,7 @@
             <div>
                 <form method="POST" action="{{ url_for('add_drink')}}">
                     {{ adddrink.hidden_tag() }}  
-                    <label for="data">Lisää kuumajuoma:</label>
+                    <label for="data">Lisää juoma:</label>
                     <br/>
                     <label name="juoma">juoma:</label>
                     {{ adddrink.juoma() }}  
@@ -125,26 +125,9 @@
                 </form>
             </div>
             <div>
-                <form method="POST" action="{{ url_for('add_sale')}}">
-                    {{ addsale.hidden_tag() }}  
-                    <label for="data">Lisää tarjous:</label>
-                    <br/>
-                    <label name="ruoka">ruoka:</label>
-                    {{ addsale.ruoka() }}  
-                    <br/>
-                    <label name="juoma">juoma:</label>
-                    {{ addsale.juoma() }}  
-                    <br/>
-                    <label name="hinta">hinta:</label>
-                    {{ addsale.hinta() }}  
-                    <br/>
-                    {{ addsale.submit() }}  
-                </form>
-            </div>
-            <div>
-                <form method="POST" action="{{ url_for('add_buffet_food')}}">
+                <form method="POST" action="{{ url_for('add_lounas_food')}}">
                     {{ addbuffetfood.hidden_tag() }}  
-                    <label for="data">Lisää buffet ruoka:</label>
+                    <label for="data">Lisää lounas:</label>
                     <br/>
                     <label name="ruoka">ruoka:</label>
                     {{ addbuffetfood.ruoka() }}  

@@ -43,13 +43,7 @@ class add_food_form(FlaskForm):
     hinta = IntegerField('hinta', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
-class add_sale_form(FlaskForm):
-    ruoka = StringField('ruoka', validators=[DataRequired()])
-    juoma = StringField('juoma', validators=[DataRequired()])               
-    hinta = IntegerField('hinta', validators=[DataRequired()])
-    submit = SubmitField('Submit')
-
-class add_buffetfood_form(FlaskForm):
+class add_lounas_form(FlaskForm):
     ruoka = StringField('ruoka', validators=[DataRequired()])
     paivamaara = DateField('paivamaara', validators=[DataRequired()])
     ainekset = StringField('ainekset', validators=[DataRequired()])               
@@ -93,9 +87,8 @@ def add():
         return redirect("/")
     adddrink = add_drink_form()
     addfood = add_food_form()
-    addsale = add_sale_form()
-    addbuffetfood = add_buffetfood_form()
-    return render_template("add.html", adddrink=adddrink, addfood=addfood, addsale=addsale, addbuffetfood=addbuffetfood)
+    addlounasfood = add_lounas_form()
+    return render_template("add.html", adddrink=adddrink, addfood=addfood, addlounasfood=addlounasfood)
 
 @app.route('/add_hot_drink', methods=['GET', 'POST'])
 def add_drink():
@@ -118,24 +111,14 @@ def add_food():
     connection.commit()
     return redirect("/add")
 
-@app.route('/add_sale', methods=['GET', 'POST'])
-def add_sale():
-    if request.method == "POST":
-        ruoka = request.form.get("ruoka")
-        juoma = request.form.get("juoma")
-        hinta = request.form.get("hinta")
-    cursor.execute("INSERT INTO tarjoukset (ruoka, juoma, hinta)  VALUES (%s, %s, %s)", (ruoka, juoma, hinta))
-    connection.commit()
-    return redirect("/add")
-
-@app.route('/add_buffet_food', methods=['GET', 'POST'])
-def add_buffet_food():
+@app.route('/add_lounas_food', methods=['GET', 'POST'])
+def add_lounas_food():
     if request.method == "POST":
         ruoka = request.form.get("ruoka")
         paivamaara = request.form.get("paivamaara")
         ainekset = request.form.get("ainekset")
         juomat = request.form.get("juomat")
-    cursor.execute("INSERT INTO viikonbuffetruokamenu (ruoka, paivamaara, ainekset, juomat)  VALUES (%s, %s, %s, %s)", (ruoka, paivamaara, ainekset, juomat))
+    cursor.execute("INSERT INTO viikonlounasRuokamenu (ruoka, paivamaara, ainekset, juomat)  VALUES (%s, %s, %s, %s)", (ruoka, paivamaara, ainekset, juomat))
     connection.commit()
     return redirect("/add")
 
