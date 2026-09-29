@@ -1,10 +1,10 @@
 # Cafeteria Menu Display
 
 Pages where user can see the cafeteria menu in slide show.
-Admin have a login and admin can add, delete and change the database values.
+Admin have a login and admin can add and delete the database values.
 
 
-## Teknologias:
+## Teknologias: 
 
 ### DATABASE:
 - SQL
@@ -17,9 +17,8 @@ Admin have a login and admin can add, delete and change the database values.
 ### FRONDEND:
 - php
 
-## Install requirements to python
+## Install requirements
     pip install -r requirements.txt
-
 
 --------------------------------------------------------------------------------
 
@@ -50,6 +49,3 @@ Admin have a login and admin can add, delete and change the database values.
 
 ####        aukioloajat
     id, paiva, kellonaika, paivamaara
-
-####        tarjoukset
-    id, ruoka, juoma, hinta
