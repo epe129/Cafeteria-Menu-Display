@@ -44,13 +44,13 @@ def db():
         cursor.execute("CREATE TABLE IF NOT EXISTS aukioloajat"
         "( id INT AUTO_INCREMENT PRIMARY KEY NOT NULL UNIQUE, paiva VARCHAR(250), kellonaika VARCHAR(250), paivamaara datetime);")
                     
-        cursor.execute(f'INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) VALUES ("ma", "9-21", "2026-10-05")')
-        cursor.execute(f'INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) VALUES ("ti", "9-21", "2026-10-06")')
-        cursor.execute(f'INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) VALUES ("ke", "9-21", "2026-10-07")')
-        cursor.execute(f'INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) VALUES ("to", "9-21", "2026-10-08")')
-        cursor.execute(f'INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) VALUES ("pe", "10-21", "2026-10-09")')
-        cursor.execute(f'INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) VALUES ("la", "8-21", "2026-10-10")')
-        cursor.execute(f'INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) VALUES ("su", "suljettu", "2026-10-11")')
+        cursor.execute('INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) VALUES ("ma", "9-21", "2026-10-05")')
+        cursor.execute('INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) VALUES ("ti", "9-21", "2026-10-06")')
+        cursor.execute('INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) VALUES ("ke", "9-21", "2026-10-07")')
+        cursor.execute('INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) VALUES ("to", "9-21", "2026-10-08")')
+        cursor.execute('INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) VALUES ("pe", "10-21", "2026-10-09")')
+        cursor.execute('INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) VALUES ("la", "8-21", "2026-10-10")')
+        cursor.execute('INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) VALUES ("su", "suljettu", "2026-10-11")')
         
         cursor.connection.commit()       
     except ImportError:

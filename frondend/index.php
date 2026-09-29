@@ -16,7 +16,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
         .lounas { width: 275px; height: 250px; float: left; padding: 10px; border: solid black 1px; font-size: 3vh;} 
         .ruuat { width: 275px; height: 150px; float: left; padding: 10px; border: solid black 1px; font-size: 3vh;} 
         .juomat { width: 275px; height: 100%; float: left; padding: 10px; margin: 0; border: solid black 1px; font-size: 3vh;} 
-        .aikataulut { width: 145px; height: 50px; float: left; padding: 10px; border: solid black 1px; font-size: 3vh; }
+        .aikataulut { width: 145px; height: 75px; float: left; padding: 10px; border: solid black 1px; font-size: 3vh; }
 </style>
 </head>
 <body>
@@ -30,6 +30,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
         // Process the result set
         if ($result->num_rows > 0) {
             // Output data of each row
+            echo "<h1 style='text-align: center;'>Lounas menu</h1>";
             while($row = $result->fetch_assoc()) {
                 echo "<div class='lounas'>";
                 echo $row["paivamaara"] . " ". date("l", strtotime($row["paivamaara"])) ."<br>";
@@ -59,6 +60,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
         $result = $conn->query($sql);
         // Process the result set
         if ($result->num_rows > 0) {
+            echo "<h1 style='text-align: center;'>Ruokalista</h1>";
             // Output data of each row
             while($row = $result->fetch_assoc()) {
                 echo "<div class='ruuat'>";
@@ -71,7 +73,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
                 echo "<br/>";    
 
                 echo "hinta:" . "<br>";
-                echo $row["hinta"]. "<br>";
+                echo $row["hinta"].' €'. "<br>";
                 echo "<br/>";    
 
                 echo "</div>";
@@ -96,7 +98,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
             echo "<div class='juomat'>";
             while($row = $result->fetch_assoc()) {
                 echo "<br/>";    
-                echo $row["juoma"]. " " . $row["hinta"] . "<br>";
+                echo $row["juoma"]. " " . $row["hinta"] .' €'. "<br>";
                 echo "<br/>";    
             }
             echo "</div>";
@@ -114,7 +116,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
             echo "<div class='juomat'>";
             while($row = $result->fetch_assoc()) {
                 echo "<br/>";    
-                echo $row["juoma"]. " " . $row["hinta"] . "<br>";
+                echo $row["juoma"]. " " . $row["hinta"] .' €' . "<br>";
                 echo "<br/>";    
             }
             echo "</div>";
@@ -126,15 +128,18 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
     <!-- aukioloajat -->
     <div id="4" style="display: none;">
         <?php
-        $sql = "SELECT paiva, kellonaika FROM aukioloajat";
+        $sql = "SELECT paiva, kellonaika, paivamaara FROM aukioloajat";
         // Execute the SQL query
         $result = $conn->query($sql);
         // Process the result set
         if ($result->num_rows > 0) {
             // Output data of each row
+            echo "<h1 style='text-align: center;'>Aukioloajat</h1>";
             while($row = $result->fetch_assoc()) {
                 echo "<div class='aikataulut'>";
                 echo $row["paiva"]. " " . $row["kellonaika"] . "<br>";   
+                echo "<br/>";
+                echo date("l", strtotime($row["paivamaara"]));   
                 echo "</div>";
             }
         } else {
