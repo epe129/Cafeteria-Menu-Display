@@ -53,6 +53,8 @@ def db():
         cursor.execute('INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) VALUES ("su", "suljettu", "2026-10-11")')
         
         cursor.connection.commit()       
+
     except ImportError:
         print("Taulukon luominen epäonnistui")
+        
 db()
