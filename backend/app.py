@@ -3,6 +3,7 @@ from flask_session import Session
 from flask_wtf import FlaskForm, CSRFProtect
 from wtforms import StringField, SubmitField, PasswordField, IntegerField, DateField, SelectField
 from wtforms.validators import DataRequired
+from datetime import timedelta
 import pymysql
 import bcrypt
 import db_info
@@ -11,6 +12,7 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'
 app.config["SESSION_PERMANENT"] = False     
 app.config["SESSION_TYPE"] = "filesystem"     
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=1)
 csrf = CSRFProtect(app)  
 Session(app)
 
