@@ -209,6 +209,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
             ikkuna += 1
         }
         setInterval(display, 10000);
+        // reloads the pages every 50 seconds so if some thing changes it updates to the page 
         function relo() {
             location.reload()
         }
