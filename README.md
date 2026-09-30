@@ -1,6 +1,6 @@
 # Cafeteria Menu Display
 
-Pages where user can see the cafeteria menu in slide show.
+Page where user can see the cafeteria menu in slide show.
 Admin have a login and admin can add and delete values from database.
 
 ## Teknologias: 
@@ -28,7 +28,6 @@ Admin have a login and admin can add and delete values from database.
 ###    FRONDEND:
 - index.php the menu display
 - connect_dp.php create the connection to db
-- pages includes all the menu pages
 
 --------------------------------------------------------------------------------
 
