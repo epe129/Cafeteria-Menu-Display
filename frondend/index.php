@@ -38,7 +38,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
             font-size: 3vh;
         } 
         .aikataulut { 
-            width: 145px; 
+            width: 200px; 
             height: 100px; 
             float: left; 
             padding: 10px; 
@@ -53,11 +53,8 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
         <?php
         date_default_timezone_set("UTC");
         $sql = "SELECT ruoka, paivamaara, ainekset, juomat FROM viikonlounasRuokamenu";
-        // Execute the SQL query
         $result = $conn->query($sql);
-        // Process the result set
         if ($result->num_rows > 0) {
-            // Output data of each row
             echo "<h1 style='text-align: center;'>Lounas menu</h1>";
             while($row = $result->fetch_assoc()) {
                 echo "<div class='lounas'>";
@@ -84,12 +81,9 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
     <div id="2" style="display: none;">
         <?php
         $sql = "SELECT ruokalaji, ruoka, ainekset, hinta FROM ruokamenu";
-        // Execute the SQL query
         $result = $conn->query($sql);
-        // Process the result set
         if ($result->num_rows > 0) {
             echo "<h1 style='text-align: center;'>Ruokalista</h1>";
-            // Output data of each row
             while($row = $result->fetch_assoc()) {
                 echo "<div class='ruuat'>";
 
@@ -137,11 +131,8 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
         ?>
         <?php
         $sql = "SELECT juoma, hinta FROM juomat WHERE tyyppi='kylmajuoma'";
-        // Execute the SQL query
         $result = $conn->query($sql);
-        // Process the result set
         if ($result->num_rows > 0) {
-            // Output data of each row
             echo "<div class='juomat' style='float: right;'>";
             while($row = $result->fetch_assoc()) {
                 echo "<br/>";    
@@ -159,11 +150,8 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
     <div id="4" style="display: none;">
         <?php
         $sql = "SELECT paiva, kellonaika, paivamaara FROM aukioloajat";
-        // Execute the SQL query
         $result = $conn->query($sql);
-        // Process the result set
         if ($result->num_rows > 0) {
-            // Output data of each row
             echo "<h1 style='text-align: center;'>Aukioloajat</h1>";
             while($row = $result->fetch_assoc()) {
                 echo "<div class='aikataulut'>";
