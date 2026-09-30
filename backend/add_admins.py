@@ -1,7 +1,3 @@
-"""
-This script allows you to add new admin users to the blog platform database.
-Make sure to run this script in a secure environment, 
-as it will prompt you for the new admin's username and password."""
 import pymysql
 import bcrypt
 import db_info
