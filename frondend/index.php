@@ -15,7 +15,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
         }
         .lounas { 
             width: 275px; 
-            height: 290px; 
+            height: 350px; 
             float: left; 
             padding: 10px; 
             border: solid black 1px; 
@@ -23,15 +23,14 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
         } 
         .ruuat { 
             width: 275px; 
-            height: 200px; 
+            height: 275px; 
             float: left; 
             padding: 10px; 
             border: solid black 1px; 
             font-size: 3vh;
         } 
         .juomat { 
-            width: 
-            275px; 
+            width: 275px; 
             height: 100%; 
             padding: 10px; 
             margin: 0; 
@@ -210,6 +209,10 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
             ikkuna += 1
         }
         setInterval(display, 10000);
+        function relo() {
+            location.reload()
+        }
+        setInterval(relo, 50000);
     </script>
 </body>
 </html>
