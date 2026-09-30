@@ -1,8 +1,7 @@
 # Cafeteria Menu Display
 
 Pages where user can see the cafeteria menu in slide show.
-Admin have a login and admin can add and delete the database values.
-
+Admin have a login and admin can add and delete values from database.
 
 ## Teknologias: 
 
@@ -17,7 +16,7 @@ Admin have a login and admin can add and delete the database values.
 ### FRONDEND:
 - php
 
-## Install requirements
+## Install requirements to python
     pip install -r requirements.txt
 
 --------------------------------------------------------------------------------

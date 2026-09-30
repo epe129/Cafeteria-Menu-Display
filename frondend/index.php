@@ -13,10 +13,39 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
             background: #2c2c2c;
             color: white;
         }
-        .lounas { width: 275px; height: 250px; float: left; padding: 10px; border: solid black 1px; font-size: 3vh;} 
-        .ruuat { width: 275px; height: 150px; float: left; padding: 10px; border: solid black 1px; font-size: 3vh;} 
-        .juomat { width: 275px; height: 100%; float: left; padding: 10px; margin: 0; border: solid black 1px; font-size: 3vh;} 
-        .aikataulut { width: 145px; height: 75px; float: left; padding: 10px; border: solid black 1px; font-size: 3vh; }
+        .lounas { 
+            width: 275px; 
+            height: 290px; 
+            float: left; 
+            padding: 10px; 
+            border: solid black 1px; 
+            font-size: 3vh;
+        } 
+        .ruuat { 
+            width: 275px; 
+            height: 200px; 
+            float: left; 
+            padding: 10px; 
+            border: solid black 1px; 
+            font-size: 3vh;
+        } 
+        .juomat { 
+            width: 
+            275px; 
+            height: 100%; 
+            padding: 10px; 
+            margin: 0; 
+            border: solid black 1px; 
+            font-size: 3vh;
+        } 
+        .aikataulut { 
+            width: 145px; 
+            height: 100px; 
+            float: left; 
+            padding: 10px; 
+            border: solid black 1px; 
+            font-size: 3vh; 
+        }
 </style>
 </head>
 <body>
@@ -87,15 +116,16 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
     <div id="3" style="display: none;">
         <?php
         $sql = "SELECT juoma, hinta FROM juomat WHERE tyyppi='kuumajuoma'";
-        // Execute the SQL query
         $result = $conn->query($sql);
-        // Process the result set
-        echo "<div style='display: flex; flex-direction: row;'>";
-        echo "<h1>Kuumatjuomat</h1> "." <h1 style='padding-left: 90px;'>Kylmätjuomat</h1>";
+        echo "<div style='width: 60%; margin-left: auto; margin-right: auto;'>";
+        echo "<div style='display: block; width: 100%; height: 100px;'>";
+        echo "<h1 style='float: left;'>Kuumatjuomat</h1>";
+        echo "<h1 style='float: right;'>Kylmätjuomat</h1>";
         echo "</div>";
+
         if ($result->num_rows > 0) {
-            // Output data of each row
-            echo "<div class='juomat'>";
+        
+            echo "<div class='juomat' style='float: left;'>";
             while($row = $result->fetch_assoc()) {
                 echo "<br/>";    
                 echo $row["juoma"]. " " . $row["hinta"] .' €'. "<br>";
@@ -113,7 +143,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
         // Process the result set
         if ($result->num_rows > 0) {
             // Output data of each row
-            echo "<div class='juomat'>";
+            echo "<div class='juomat' style='float: right;'>";
             while($row = $result->fetch_assoc()) {
                 echo "<br/>";    
                 echo $row["juoma"]. " " . $row["hinta"] .' €' . "<br>";
@@ -123,6 +153,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
         } else {
             echo "0 results";
         }
+        echo "</div>";
         ?>
     </div>
     <!-- aukioloajat -->
@@ -139,7 +170,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
                 echo "<div class='aikataulut'>";
                 echo $row["paiva"]. " " . $row["kellonaika"] . "<br>";   
                 echo "<br/>";
-                echo $row["paivamaara"];   
+                echo date('Y-m-d', strtotime($row["paivamaara"]));   
                 echo "</div>";
             }
         } else {
