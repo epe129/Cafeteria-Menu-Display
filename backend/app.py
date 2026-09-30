@@ -113,6 +113,9 @@ def add():
 
 @app.route('/add_hot_drink', methods=['GET', 'POST'])
 def add_drink():
+    # if logged in shows the pages
+    if not session.get("Username"):
+        return redirect("/")
     if request.method == "POST":
         juoma = request.form.get("juoma")
         hinta = request.form.get("hinta")
@@ -123,6 +126,9 @@ def add_drink():
 
 @app.route('/add_food', methods=['GET', 'POST'])
 def add_food():
+    # if logged in shows the pages
+    if not session.get("Username"):
+        return redirect("/")
     if request.method == "POST":
         ruokalaji = request.form.get("ruokalaji")
         ruoka = request.form.get("ruoka")
@@ -134,6 +140,9 @@ def add_food():
 
 @app.route('/add_lounas_food', methods=['GET', 'POST'])
 def add_lounas_food():
+    # if logged in shows the pages
+    if not session.get("Username"):
+        return redirect("/")
     if request.method == "POST":
         ruoka = request.form.get("ruoka")
         paivamaara = request.form.get("paivamaara")
@@ -146,6 +155,9 @@ def add_lounas_food():
 
 @app.route('/delete', methods=['GET', 'POST'])
 def delete():
+    # if logged in shows the pages
+    if not session.get("Username"):
+        return redirect("/")
     cursor.execute("SELECT id, juoma, hinta FROM juomat")
     getDataJuoma = cursor.fetchall()
     poista_drink = poista_drink_form()
@@ -172,6 +184,9 @@ def delete():
 
 @app.route('/delete_drink', methods=['GET', 'POST'])
 def delete_drink():
+    # if logged in shows the pages
+    if not session.get("Username"):
+        return redirect("/")
     if request.method == "POST":
         juomat = request.form.get("juomat")
         print(juomat)
@@ -181,6 +196,9 @@ def delete_drink():
 
 @app.route('/delete_ruoka', methods=['GET', 'POST'])
 def delete_ruoka():
+    # if logged in shows the pages
+    if not session.get("Username"):
+        return redirect("/")
     if request.method == "POST":
         ruoka = request.form.get("ruoka")
         print(ruoka)
@@ -190,12 +208,21 @@ def delete_ruoka():
 
 @app.route('/delete_lounas', methods=['GET', 'POST'])
 def delete_lounas():
+    # if logged in shows the pages
+    if not session.get("Username"):
+        return redirect("/")
     if request.method == "POST":
         lounas = request.form.get("lounas")
         print(lounas)
         cursor.execute(f"DELETE FROM viikonlounasruokamenu WHERE id='{lounas}';")
         connection.commit()
     return redirect("/delete")
+
+@app.route("/logout")
+def logout():
+    # Clear the username from session
+    session["Username"] = None
+    return redirect("/")
 
 if __name__ == '__main__':
     app.run()

@@ -1,0 +1,8 @@
+/Include
+/Lib
+/Scripts
+/pyvenv.cfg
+/db_info.py
+/venv
+/flask_session
+/__pycache__
