@@ -77,7 +77,6 @@ class poista_lounas_form(FlaskForm):
 # login page
 @app.route('/', methods=['GET', 'POST'])
 def login():
-    text = ""
     form = LoginForm()
     # handles the login
     if request.method == 'POST':
