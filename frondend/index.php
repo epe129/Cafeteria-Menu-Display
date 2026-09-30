@@ -10,42 +10,53 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
     <title>Menu</title>
     <style>
         body {
-            background: #2c2c2c;
-            color: white;
+            margin: 0;
+            padding: 20px;
+            background: #f3f4f6;
+            color: #1f2937;
+            font-family: Arial, sans-serif;
         }
-        .lounas { 
-            width: 275px; 
-            height: 350px; 
-            float: left; 
-            padding: 10px; 
-            border: solid black 1px; 
-            font-size: 3vh;
-        } 
-        .ruuat { 
-            width: 275px; 
-            height: 275px; 
-            float: left; 
-            padding: 10px; 
-            border: solid black 1px; 
-            font-size: 3vh;
-        } 
-        .juomat { 
-            width: 275px; 
-            height: 100%; 
-            padding: 10px; 
-            margin: 0; 
-            border: solid black 1px; 
-            font-size: 3vh;
-        } 
-        .aikataulut { 
-            width: 200px; 
-            height: 100px; 
-            float: left; 
-            padding: 10px; 
-            border: solid black 1px; 
-            font-size: 3vh; 
+
+        h1 {
+            text-align: center;
+            color: #111827;
+            font-size: 2.3rem;
         }
-</style>
+
+        .lounas,
+        .ruuat,
+        .juomat,
+        .aikataulut {
+            float: left;
+            width: 260px;
+            min-height: 180px;
+            padding: 16px;
+            margin: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 12px;
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: #1f2937;
+        }
+
+        .lounas {
+            min-height: 340px;
+        }
+
+        .ruuat {
+            min-height: 240px;
+        }
+
+        .juomat {
+            min-height: 200px;
+        }
+
+        .aikataulut {
+            min-height: 75px;
+        }
+    </style>
 </head>
 <body>
     <!-- lounas -->
@@ -111,19 +122,16 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
         $sql = "SELECT juoma, hinta FROM juomat WHERE tyyppi='kuumajuoma'";
         $result = $conn->query($sql);
         echo "<div style='width: 60%; margin-left: auto; margin-right: auto;'>";
-        echo "<div style='display: block; width: 100%; height: 100px;'>";
-        echo "<h1 style='float: left;'>Kuumatjuomat</h1>";
-        echo "<h1 style='float: right;'>Kylmätjuomat</h1>";
-        echo "</div>";
-
         if ($result->num_rows > 0) {
-        
+            echo "<div style='float: left;'>";
+            echo "<h1>Kuumatjuomat</h1>";
             echo "<div class='juomat' style='float: left;'>";
             while($row = $result->fetch_assoc()) {
                 echo "<br/>";    
                 echo $row["juoma"]. " " . $row["hinta"] .' €'. "<br>";
                 echo "<br/>";    
             }
+            echo "</div>";
             echo "</div>";
         } else {
             echo "0 results";
@@ -133,6 +141,8 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
         $sql = "SELECT juoma, hinta FROM juomat WHERE tyyppi='kylmajuoma'";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
+            echo "<div style='float: right;'>";
+            echo "<h1>Kylmätjuomat</h1>";
             echo "<div class='juomat' style='float: right;'>";
             while($row = $result->fetch_assoc()) {
                 echo "<br/>";    
@@ -140,6 +150,8 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
                 echo "<br/>";    
             }
             echo "</div>";
+            echo "</div>";
+
         } else {
             echo "0 results";
         }
@@ -156,7 +168,6 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
             while($row = $result->fetch_assoc()) {
                 echo "<div class='aikataulut'>";
                 echo $row["paiva"]. " " . $row["kellonaika"] . "<br>";   
-                echo "<br/>";
                 echo date('Y-m-d', strtotime($row["paivamaara"]));   
                 echo "</div>";
             }
