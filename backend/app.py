@@ -1,3 +1,4 @@
+"""A dummy description."""
 from datetime import timedelta
 from flask import Flask, render_template, request, session, redirect, url_for
 from flask_session import Session
@@ -23,11 +24,13 @@ cursor = connection.cursor()
 
 # csrf protected form
 class LoginForm(FlaskForm):
+    """A dummy description."""
     Username = StringField('Username', validators=[DataRequired()])
     Pword = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 class add_drink_form(FlaskForm):
+    """A dummy description."""
     juoma = StringField('juoma', validators=[DataRequired()])
     hinta = IntegerField('hinta', validators=[DataRequired()])
     tyyppi = SelectField('tyyppi',  
@@ -40,6 +43,7 @@ class add_drink_form(FlaskForm):
     submit = SubmitField('Submit')
 
 class add_food_form(FlaskForm):
+    """A dummy description."""
     ruokalaji = StringField('ruokalaji', validators=[DataRequired()])
     ruoka = StringField('ruoka', validators=[DataRequired()])
     ainekset = StringField('ainekset', validators=[DataRequired()])               
@@ -47,6 +51,7 @@ class add_food_form(FlaskForm):
     submit = SubmitField('Submit')
 
 class add_lounas_form(FlaskForm):
+    """A dummy description."""
     ruoka = StringField('ruoka', validators=[DataRequired()])
     paivamaara = DateField('paivamaara', validators=[DataRequired()])
     ainekset = StringField('ainekset', validators=[DataRequired()])               
@@ -54,6 +59,7 @@ class add_lounas_form(FlaskForm):
     submit = SubmitField('Submit')
 
 class poista_drink_form(FlaskForm):
+    """A dummy description."""
     juomat = SelectField('Poista juoma',  
         choices=[], 
         validators=[DataRequired()]
@@ -61,6 +67,7 @@ class poista_drink_form(FlaskForm):
     submit = SubmitField('Submit')
 
 class poista_ruoka_form(FlaskForm):
+    """A dummy description."""
     ruoka = SelectField('Poista ruoka',  
         choices=[], 
         validators=[DataRequired()]
@@ -68,6 +75,7 @@ class poista_ruoka_form(FlaskForm):
     submit = SubmitField('Submit')
 
 class poista_lounas_form(FlaskForm):
+    """A dummy description."""
     lounas = SelectField('Poista lounas',  
         choices=[], 
         validators=[DataRequired()]
@@ -77,6 +85,7 @@ class poista_lounas_form(FlaskForm):
 # login page
 @app.route('/', methods=['GET', 'POST'])
 def login():
+    """A dummy description."""
     form = LoginForm()
     # handles the login
     if request.method == 'POST':
@@ -105,6 +114,7 @@ def login():
 # admin page 
 @app.route('/add', methods=['GET', 'POST'])
 def add():
+    """A dummy description."""
     # if logged in shows the pages
     if not session.get("Username"):
         return redirect("/")
@@ -118,6 +128,7 @@ def add():
 
 @app.route('/add_hot_drink', methods=['GET', 'POST'])
 def add_drink():
+    """A dummy description."""
     # if logged in shows the pages
     if not session.get("Username"):
         return redirect("/")
@@ -135,6 +146,7 @@ def add_drink():
 
 @app.route('/add_food', methods=['GET', 'POST'])
 def add_food():
+    """A dummy description."""
     # if logged in shows the pages
     if not session.get("Username"):
         return redirect("/")
@@ -153,6 +165,7 @@ def add_food():
 
 @app.route('/add_lounas_food', methods=['GET', 'POST'])
 def add_lounas_food():
+    """A dummy description."""
     # if logged in shows the pages
     if not session.get("Username"):
         return redirect("/")
@@ -172,6 +185,7 @@ def add_lounas_food():
 
 @app.route('/delete', methods=['GET', 'POST'])
 def delete():
+    """A dummy description."""
     # if logged in shows the pages
     if not session.get("Username"):
         return redirect("/")
@@ -206,6 +220,7 @@ def delete():
 
 @app.route('/delete_drink', methods=['GET', 'POST'])
 def delete_drink():
+    """A dummy description."""
     # if logged in shows the pages
     if not session.get("Username"):
         return redirect("/")
@@ -222,6 +237,7 @@ def delete_drink():
 
 @app.route('/delete_ruoka', methods=['GET', 'POST'])
 def delete_ruoka():
+    """A dummy description."""
     # if logged in shows the pages
     if not session.get("Username"):
         return redirect("/")
@@ -238,6 +254,7 @@ def delete_ruoka():
 
 @app.route('/delete_lounas', methods=['GET', 'POST'])
 def delete_lounas():
+    """A dummy description."""
     # if logged in shows the pages
     if not session.get("Username"):
         return redirect("/")
@@ -254,6 +271,7 @@ def delete_lounas():
 
 @app.route("/logout")
 def logout():
+    """A dummy description."""
     session["Username"] = None
     return redirect("/")
 
