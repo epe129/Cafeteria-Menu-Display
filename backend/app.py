@@ -1,9 +1,9 @@
+from datetime import timedelta
 from flask import Flask, render_template, request, session, redirect, url_for
 from flask_session import Session
 from flask_wtf import FlaskForm, CSRFProtect
 from wtforms import StringField, SubmitField, PasswordField, IntegerField, DateField, SelectField
 from wtforms.validators import DataRequired
-from datetime import timedelta
 import pymysql
 import bcrypt
 import db_info
@@ -33,7 +33,7 @@ class add_drink_form(FlaskForm):
     tyyppi = SelectField('tyyppi',  
         choices=[
             ('kylmajuoma', 'kylmajuoma'),
-            ('kuumajuomja', 'kuumajuomja'),
+            ('kuumajuoma', 'kuumajuoma'),
         ], 
         validators=[DataRequired()]
         )
