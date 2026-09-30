@@ -255,7 +255,6 @@ def delete_lounas():
 
 @app.route("/logout")
 def logout():
-    # Clear the username from session
     session["Username"] = None
     return redirect("/")
 
