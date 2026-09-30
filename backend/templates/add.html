@@ -103,6 +103,7 @@
                     <br/>
                     {{ adddrink.submit() }}  
                 </form>
+                <p style="color: white; font-size: 2vh;">{{ msg_d }}</p>
             </div>
             <div>
                 <form method="POST" action="{{ url_for('add_food')}}">
@@ -122,6 +123,7 @@
                     {{ addfood.hinta() }}   
                     <br/>
                     {{ addfood.submit() }}  
+                    <p style="color: white; font-size: 2vh;">{{ msg_f }}</p>
                 </form>
             </div>
             <div>
@@ -142,6 +144,7 @@
                     {{ addlounasfood.juomat() }}  
                     <br/>
                     {{ addlounasfood.submit() }}  
+                    <p style="color: white; font-size: 2vh;">{{ msg_l }}</p>
                 </form>
             </div>
         </div>
