@@ -7,8 +7,6 @@ Admin have a login and admin can add and delete values from database.
 
 ### DATABASE:
 - SQL
-- XAMPP
-- phpMyadmin
 ### BACKEND:
 - Flask
 - python
@@ -25,6 +23,21 @@ Admin have a login and admin can add and delete values from database.
 - app.py the backend application
 - create_db.py can create the db using this includes all basic information about the cafeteria
 - db_info.py information that needed to connect the db        
+
+### Connect python app to database 
+file name: db_info.py
+
+    data = {
+        "USER":'esimnerkki',
+        "PASSWORD":'esimnerkki',
+        "DBNIMI": 'esimnerkki',
+        "PORT": 1234,
+        "HOST": '123.1.2.3',
+    } 
+
+### Flask ohjelma:
+    flask run --debug
+
 ###    FRONDEND:
 - index.php the menu display
 - connect_dp.php create the connection to db
@@ -47,3 +60,9 @@ Admin have a login and admin can add and delete values from database.
 
 ####        aukioloajat
     id, paiva, kellonaika, paivamaara
+
+
+## Sivu
+
+### page url when you host it localy: 
+    http://localhost/CafeteriaMenuDisplay/frondend/index.php
