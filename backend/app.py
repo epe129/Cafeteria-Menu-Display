@@ -215,6 +215,7 @@ def delete():
     if not session.get("Username"):
         return redirect("/")
     try:
+        # adds the values to the form from the db
         cursor.execute("SELECT id, juoma, hinta FROM juomat")
         getdatajuoma = cursor.fetchall()
         poista_drink = PoistaDrinkForm()
