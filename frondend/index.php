@@ -30,7 +30,6 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
         .aikataulut {
             float: left;
             width: 260px;
-            min-height: 180px;
             padding: 16px;
             margin: 10px;
             border: 1px solid #d1d5db;
@@ -43,7 +42,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
         }
 
         .lounas {
-            min-height: 200px;
+            max-height: 380px;
         }
 
         .ruuat {

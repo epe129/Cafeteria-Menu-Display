@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin</title>
+    <title>Admin add</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -90,7 +90,7 @@
             <div>
                 <form method="POST" action="{{ url_for('add_drink')}}">
                     {{ adddrink.hidden_tag() }}  
-                    <label for="data">Lisää juoma:</label>
+                    <label>Lisää juoma:</label>
                     <br/>
                     <label name="juoma">juoma:</label>
                     {{ adddrink.juoma() }}  
@@ -108,7 +108,7 @@
             <div>
                 <form method="POST" action="{{ url_for('add_food')}}">
                     {{ addfood.hidden_tag() }}  
-                    <label for="data">Lisää ruoka:</label>
+                    <label>Lisää ruoka:</label>
                     <br/>
                     <label name="ruokalaji">ruokalaji:</label>
                     {{ addfood.ruokalaji() }}  
@@ -129,7 +129,7 @@
             <div>
                 <form method="POST" action="{{ url_for('add_lounas_food')}}">
                     {{ addlounasfood.hidden_tag() }}  
-                    <label for="data">Lisää lounas:</label>
+                    <label>Lisää lounas:</label>
                     <br/>
                     <label name="ruoka">ruoka:</label>
                     {{ addlounasfood.ruoka() }}  
@@ -150,7 +150,7 @@
             <div>
                 <form method="POST" action="{{ url_for('add_aukioloaika')}}">
                     {{ addaikataulu.hidden_tag() }}  
-                    <label for="data">Lisää aukioloaika:</label>
+                    <label>Lisää aukioloaika:</label>
                     <br/>
                     <label name="ruoka">paiva:</label>
                     {{ addaikataulu.paiva() }}  
