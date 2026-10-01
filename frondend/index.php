@@ -15,6 +15,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
             background: #f3f4f6;
             color: #1f2937;
             font-family: Arial, sans-serif;
+            overflow: hidden;
         }
 
         h1 {
@@ -42,7 +43,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
         }
 
         .lounas {
-            min-height: 340px;
+            min-height: 200px;
         }
 
         .ruuat {
