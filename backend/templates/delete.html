@@ -87,6 +87,7 @@
     {% extends "navbar.html" %}
     {% block content %}
     <div class="main-content">
+        <p style="color:white; font-size: 1.5vw;">{{ text }}</p>
         <!-- juoma -->
         <div>
             <form method="POST" action="{{ url_for('delete_drink')}}">
@@ -102,24 +103,24 @@
         <!-- ruoka -->
         <div>
             <form method="POST" action="{{ url_for('delete_ruoka')}}">
-                {{ poista_Ruoka.hidden_tag() }}
+                {{ poista_ruoka.hidden_tag() }}
 
-                {{ poista_Ruoka.ruoka.label }}
-                {{ poista_Ruoka.ruoka() }}
+                {{ poista_ruoka.ruoka.label }}
+                {{ poista_ruoka.ruoka() }}
 
-                {{ poista_Ruoka.submit() }}
+                {{ poista_ruoka.submit() }}
                 <p style="color: white; font-size: 2vh;">{{ msg_r_d }}</p>
             </form>
         </div>
         <!-- lounas -->
         <div>
             <form method="POST" action="{{ url_for('delete_lounas')}}">
-                {{ poista_Lounas.hidden_tag() }}
+                {{ poista_lounas.hidden_tag() }}
 
-                {{ poista_Lounas.lounas.label }}
-                {{ poista_Lounas.lounas() }}
+                {{ poista_lounas.lounas.label }}
+                {{ poista_lounas.lounas() }}
 
-                {{ poista_Lounas.submit() }}
+                {{ poista_lounas.submit() }}
                 <p style="color: white; font-size: 2vh;">{{ msg_l_d }}</p>
             </form>
         </div>

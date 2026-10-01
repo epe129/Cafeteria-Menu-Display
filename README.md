@@ -61,8 +61,5 @@ file name: db_info.py
 ####        aukioloajat
     id, paiva, kellonaika, paivamaara
 
-
-## Sivu
-
-### page url when you host it localy: 
+## page url when you host it localy: 
     http://localhost/CafeteriaMenuDisplay/frondend/index.php

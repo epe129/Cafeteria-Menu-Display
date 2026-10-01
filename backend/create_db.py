@@ -31,7 +31,7 @@ def db():
     try:
         cursor.execute("CREATE TABLE IF NOT EXISTS admin "
         "( id INT AUTO_INCREMENT PRIMARY KEY NOT NULL UNIQUE, username VARCHAR(45) NOT NULL, pword VARCHAR(255) NOT NULL);")
- 
+
         cursor.execute("CREATE TABLE IF NOT EXISTS viikonlounasRuokamenu"
         "( id INT AUTO_INCREMENT PRIMARY KEY NOT NULL UNIQUE, ruoka VARCHAR(250), paivamaara date, ainekset VARCHAR(250), juomat VARCHAR(250));")
  

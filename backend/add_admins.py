@@ -1,3 +1,4 @@
+"""python script to add admins to db"""
 import pymysql
 import bcrypt
 import db_info
