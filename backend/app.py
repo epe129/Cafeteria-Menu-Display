@@ -58,6 +58,13 @@ class add_lounas_form(FlaskForm):
     juomat = StringField('juomat', validators=[DataRequired()])               
     submit = SubmitField('Submit')
 
+class add_aikataulu_form(FlaskForm):
+    """form to aikataulu add"""
+    paiva = StringField('paiva', validators=[DataRequired()])
+    paivamaara = DateField('paivamaara', validators=[DataRequired()])
+    kellonaika = StringField('kellonaika', validators=[DataRequired()])               
+    submit = SubmitField('Submit')
+
 class poista_drink_form(FlaskForm):
     """form to juoma deletion"""
     juomat = SelectField('Poista juoma',  
@@ -121,10 +128,12 @@ def add():
     adddrink = add_drink_form()
     addfood = add_food_form()
     addlounasfood = add_lounas_form()
+    addaikataulu = add_aikataulu_form()
     msg_d = request.args.get("errorD", "")
     msg_f = request.args.get("errorF", "")
     msg_l = request.args.get("errorL", "")
-    return render_template("add.html", adddrink=adddrink, addfood=addfood, addlounasfood=addlounasfood, msg_d=msg_d, msg_f=msg_f, msg_l=msg_l)
+    msg_a = request.args.get("errorA", "")
+    return render_template("add.html", adddrink=adddrink, addfood=addfood, addlounasfood=addlounasfood, addaikataulu=addaikataulu, msg_d=msg_d, msg_f=msg_f, msg_l=msg_l, msg_a=msg_a)
 
 @app.route('/add_hot_drink', methods=['GET', 'POST'])
 def add_drink():
@@ -181,6 +190,24 @@ def add_lounas_food():
     except ImportError:
         errorL = "Jokin meni pieleen"
     return redirect(url_for("add", errorL=errorL))
+
+@app.route('/add_aukioloaika', methods=['GET', 'POST'])
+def add_aukioloaika():
+    """Handles aukioloaika add"""
+    # if logged in shows the pages
+    if not session.get("Username"):
+        return redirect("/")
+    try:
+        if request.method == "POST":
+            paiva = request.form.get("paiva")
+            paivamaara = request.form.get("paivamaara")
+            kellonaika = request.form.get("kellonaika")
+        cursor.execute("INSERT INTO aukioloajat (paiva, paivamaara, kellonaika)  VALUES (%s, %s, %s)", (paiva, paivamaara, kellonaika))
+        connection.commit()
+        errorA = "Lisätty onnistuneesti"
+    except ImportError:
+        errorA = "Jokin meni pieleen"
+    return redirect(url_for("add", errorA=errorA))
 
 @app.route('/delete', methods=['GET', 'POST'])
 def delete():

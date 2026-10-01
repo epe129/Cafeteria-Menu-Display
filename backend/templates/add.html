@@ -147,6 +147,24 @@
                     <p style="color: white; font-size: 2vh;">{{ msg_l }}</p>
                 </form>
             </div>
+            <div>
+                <form method="POST" action="{{ url_for('add_aukioloaika')}}">
+                    {{ addaikataulu.hidden_tag() }}  
+                    <label for="data">Lisää aukioloaika:</label>
+                    <br/>
+                    <label name="ruoka">paiva:</label>
+                    {{ addaikataulu.paiva() }}  
+                    <br/>
+                    <label name="paivamaara">paivamaara:</label>
+                    {{ addaikataulu.paivamaara() }}  
+                    <br/>
+                    <label name="ainekset">kellonaika:</label>
+                    {{ addaikataulu.kellonaika() }}  
+                    <br/>
+                    {{ addaikataulu.submit() }}  
+                    <p style="color: white; font-size: 2vh;">{{ msg_a }}</p>
+                </form>
+            </div>
         </div>
     {% endblock %}
 </body>
