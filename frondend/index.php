@@ -75,7 +75,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
                     echo "<h3>".date("l", strtotime($row["paivamaara"])). "</h3>";
                     echo "<h3>".date('d.m.Y', strtotime($row["paivamaara"])) . "</h3>";
 
-                    echo "<h3>".$row["ruoka"]. "</h3>";
+                    echo "<h3>". ucfirst($row["ruoka"]) . "</h3>";
 
                     echo "Ainekset:" . "<br>";
                     echo $row["ainekset"]. "<br>";
@@ -101,7 +101,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
             while($row = $result->fetch_assoc()) {
                 echo "<div class='ruuat'>";
 
-                echo "<h3>". $row["ruoka"]. "</h3>";
+                echo "<h3>". ucfirst($row["ruoka"]). "</h3>";
 
                 echo "Ainekset:" . "<br>";
                 echo $row["ainekset"]. "<br>";
@@ -127,7 +127,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
             echo "<h1>Kuumatjuomat</h1>";
             echo "<div class='juomat' style='float: left;'>";
             while($row = $result->fetch_assoc()) {
-                echo "<p style='font-size: 1.8rem;'>".  $row["juoma"]. " " . $row["hinta"] .' €'. "</p>";
+                echo "<p style='font-size: 1.8rem;'>".  ucfirst($row["juoma"]) . " " . $row["hinta"] .' €'. "</p>";
             }
             echo "</div>";
             echo "</div>";
@@ -143,7 +143,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
             echo "<h1>Kylmätjuomat</h1>";
             echo "<div class='juomat' style='float: right;'>";
             while($row = $result->fetch_assoc()) {
-                echo "<p style='font-size: 1.8rem;'>". $row["juoma"]. " " . $row["hinta"] .' €' . "</p>";
+                echo "<p style='font-size: 1.8rem;'>". ucfirst($row["juoma"]) . " " . $row["hinta"] .' €' . "</p>";
             }
             echo "</div>";
             echo "</div>";
@@ -157,16 +157,19 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
     <!-- aukioloajat -->
     <div id="4" style="display: none;">
         <?php
+        $countAika = 0;
         $sql = "SELECT paiva, kellonaika, paivamaara FROM aukioloajat";
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             echo "<h1 style='text-align: center;'>Aukioloajat</h1>";
             while($row = $result->fetch_assoc()) {
                 if ($row["paivamaara"] >= date("Y-m-d")) {
+                    $countAika += 1;
                     echo "<div class='aikataulut'>";
                     echo "<p style='font-size: 1.8rem; font-weight: 700;'>". $row["paiva"]. " " . $row["kellonaika"] . "</p>";   
                     echo  "<p style='font-size: 1.8rem; font-weight: 600;'>". date('d.m.Y', strtotime($row["paivamaara"])) . "</p>";   
                     echo "</div>";
+                    if ($countAika == 7) { break; }
                 }
             }
         } else {

@@ -29,7 +29,7 @@ class LoginForm(FlaskForm):
     Pword = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
-class add_drink_form(FlaskForm):
+class AddDrinkForm(FlaskForm):
     """form to juoma add"""
     juoma = StringField('juoma', validators=[DataRequired()])
     hinta = IntegerField('hinta', validators=[DataRequired()])
@@ -42,7 +42,7 @@ class add_drink_form(FlaskForm):
         )
     submit = SubmitField('Submit')
 
-class add_food_form(FlaskForm):
+class AddFoodForm(FlaskForm):
     """form to ruoka add"""
     ruokalaji = StringField('ruokalaji', validators=[DataRequired()])
     ruoka = StringField('ruoka', validators=[DataRequired()])
@@ -50,7 +50,7 @@ class add_food_form(FlaskForm):
     hinta = IntegerField('hinta', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
-class add_lounas_form(FlaskForm):
+class AddLounasForm(FlaskForm):
     """form to lounas add"""
     ruoka = StringField('ruoka', validators=[DataRequired()])
     paivamaara = DateField('paivamaara', validators=[DataRequired()])
@@ -58,14 +58,14 @@ class add_lounas_form(FlaskForm):
     juomat = StringField('juomat', validators=[DataRequired()])               
     submit = SubmitField('Submit')
 
-class add_aikataulu_form(FlaskForm):
+class AddAikatauluForm(FlaskForm):
     """form to aikataulu add"""
     paiva = StringField('paiva', validators=[DataRequired()])
     paivamaara = DateField('paivamaara', validators=[DataRequired()])
     kellonaika = StringField('kellonaika', validators=[DataRequired()])               
     submit = SubmitField('Submit')
 
-class poista_drink_form(FlaskForm):
+class PoistaDrinkForm(FlaskForm):
     """form to juoma deletion"""
     juomat = SelectField('Poista juoma',  
         choices=[], 
@@ -73,7 +73,7 @@ class poista_drink_form(FlaskForm):
         )
     submit = SubmitField('Submit')
 
-class poista_ruoka_form(FlaskForm):
+class PoistaRuokaForm(FlaskForm):
     """form to ruoka deletion"""
     ruoka = SelectField('Poista ruoka',  
         choices=[], 
@@ -81,7 +81,7 @@ class poista_ruoka_form(FlaskForm):
         )
     submit = SubmitField('Submit')
 
-class poista_lounas_form(FlaskForm):
+class PoistaLounasForm(FlaskForm):
     """form to lounas deletion"""
     lounas = SelectField('Poista lounas',  
         choices=[], 
@@ -99,12 +99,10 @@ def login():
         if form.validate_on_submit():
             username = form.Username.data
             pword = form.Pword.data
-            print(username)
             cursor.execute(f"SELECT username, pword FROM admin WHERE username='{username}'")
             getdata = cursor.fetchall()
             if pword is not None and getdata:
                 if bcrypt.checkpw(pword.encode('utf8'), getdata[0][1].encode('utf8')):
-                    print("correct")
                     session["Username"] = getdata[0][0]
                     return redirect("/add")
                 else:
@@ -125,14 +123,14 @@ def add():
     # if logged in shows the pages
     if not session.get("Username"):
         return redirect("/")
-    adddrink = add_drink_form()
-    addfood = add_food_form()
-    addlounasfood = add_lounas_form()
-    addaikataulu = add_aikataulu_form()
-    msg_d = request.args.get("errorD", "")
-    msg_f = request.args.get("errorF", "")
-    msg_l = request.args.get("errorL", "")
-    msg_a = request.args.get("errorA", "")
+    adddrink = AddDrinkForm()
+    addfood = AddFoodForm()
+    addlounasfood = AddLounasForm()
+    addaikataulu = AddAikatauluForm()
+    msg_d = request.args.get("error_d", "")
+    msg_f = request.args.get("error_f", "")
+    msg_l = request.args.get("error_l", "")
+    msg_a = request.args.get("error_a", "")
     return render_template("add.html", adddrink=adddrink, addfood=addfood, addlounasfood=addlounasfood, addaikataulu=addaikataulu, msg_d=msg_d, msg_f=msg_f, msg_l=msg_l, msg_a=msg_a)
 
 @app.route('/add_hot_drink', methods=['GET', 'POST'])
@@ -148,10 +146,10 @@ def add_drink():
             tyyppi = request.form.get("tyyppi")
         cursor.execute("INSERT INTO juomat (juoma, hinta, tyyppi)  VALUES (%s, %s, %s)", (juoma, hinta, tyyppi))
         connection.commit()
-        errorD = "Lisätty onnistuneesti"
+        error_d = "Lisätty onnistuneesti"
     except ImportError:
-        errorD = "Jokin meni pieleen"
-    return redirect(url_for("add", errorD=errorD))
+        error_d = "Jokin meni pieleen"
+    return redirect(url_for("add", error_d=error_d))
 
 @app.route('/add_food', methods=['GET', 'POST'])
 def add_food():
@@ -167,10 +165,10 @@ def add_food():
             hinta = request.form.get("hinta")
         cursor.execute("INSERT INTO ruokamenu (ruokalaji, ruoka, ainekset, hinta, tyyppi)  VALUES (%s, %s, %s, %s)", (ruokalaji, ruoka, ainekset, hinta))
         connection.commit()
-        errorF = "Lisätty onnistuneesti"
+        error_f = "Lisätty onnistuneesti"
     except ImportError:
-        errorF = "Jokin meni pieleen"
-    return redirect(url_for("add", errorF=errorF))
+        error_f = "Jokin meni pieleen"
+    return redirect(url_for("add", error_f=error_f))
 
 @app.route('/add_lounas_food', methods=['GET', 'POST'])
 def add_lounas_food():
@@ -186,10 +184,10 @@ def add_lounas_food():
             juomat = request.form.get("juomat")
         cursor.execute("INSERT INTO viikonlounasRuokamenu (ruoka, paivamaara, ainekset, juomat)  VALUES (%s, %s, %s, %s)", (ruoka, paivamaara, ainekset, juomat))
         connection.commit()
-        errorL = "Lisätty onnistuneesti"
+        error_l = "Lisätty onnistuneesti"
     except ImportError:
-        errorL = "Jokin meni pieleen"
-    return redirect(url_for("add", errorL=errorL))
+        error_l = "Jokin meni pieleen"
+    return redirect(url_for("add", error_l=error_l))
 
 @app.route('/add_aukioloaika', methods=['GET', 'POST'])
 def add_aukioloaika():
@@ -204,10 +202,10 @@ def add_aukioloaika():
             kellonaika = request.form.get("kellonaika")
         cursor.execute("INSERT INTO aukioloajat (paiva, paivamaara, kellonaika)  VALUES (%s, %s, %s)", (paiva, paivamaara, kellonaika))
         connection.commit()
-        errorA = "Lisätty onnistuneesti"
+        error_a = "Lisätty onnistuneesti"
     except ImportError:
-        errorA = "Jokin meni pieleen"
-    return redirect(url_for("add", errorA=errorA))
+        error_a = "Jokin meni pieleen"
+    return redirect(url_for("add", error_a=error_a))
 
 @app.route('/delete', methods=['GET', 'POST'])
 def delete():
@@ -219,21 +217,21 @@ def delete():
     try:
         cursor.execute("SELECT id, juoma, hinta FROM juomat")
         getdatajuoma = cursor.fetchall()
-        poista_drink = poista_drink_form()
+        poista_drink = PoistaDrinkForm()
         poista_drink.juomat.choices = [
             (str(id), f"{id}, {juoma}, {hinta}")
             for id, juoma, hinta in getdatajuoma
         ]
         cursor.execute("SELECT id, ruoka FROM ruokamenu")
         getdataruoka = cursor.fetchall()
-        poista_ruoka = poista_ruoka_form()
+        poista_ruoka = PoistaRuokaForm()
         poista_ruoka.ruoka.choices = [
             (str(id), f"{id}, {ruoka}")
             for id, ruoka in getdataruoka
         ]
         cursor.execute("SELECT id, ruoka, paivamaara FROM viikonlounasruokamenu")
         getdatalounas = cursor.fetchall()
-        poista_lounas = poista_lounas_form()
+        poista_lounas = PoistaLounasForm()
         poista_lounas.lounas.choices = [
             (str(id), f"{id}, {ruoka}, {paivamaara}")
             for id, ruoka, paivamaara in getdatalounas
@@ -255,7 +253,6 @@ def delete_drink():
     try:
         if request.method == "POST":
             juomat = request.form.get("juomat")
-            print(juomat)
             cursor.execute(f"DELETE FROM juomat WHERE id='{juomat}';")
             connection.commit()
             msg_d_d = "Poistettu onnistuneesti"
@@ -273,7 +270,6 @@ def delete_ruoka():
     try:
         if request.method == "POST":
             ruoka = request.form.get("ruoka")
-            print(ruoka)
             cursor.execute(f"DELETE FROM ruokamenu WHERE id='{ruoka}';")
             connection.commit()
             msg_r_d = "Poistettu onnistuneesti"
@@ -291,7 +287,6 @@ def delete_lounas():
     try:
         if request.method == "POST":
             lounas = request.form.get("lounas")
-            print(lounas)
             cursor.execute(f"DELETE FROM viikonlounasruokamenu WHERE id='{lounas}';")
             connection.commit()
             msg_l_d = "Poistettu onnistuneesti"
