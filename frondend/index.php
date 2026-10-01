@@ -62,6 +62,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
     <!-- lounas -->
     <div id="1">
         <?php
+        $countLunch = 0;
         date_default_timezone_set("UTC");
         $sql = "SELECT ruoka, paivamaara, ainekset, juomat FROM viikonlounasRuokamenu";
         $result = $conn->query($sql);
@@ -69,6 +70,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
             echo "<h1 style='text-align: center;'>Lounas menu</h1>";
             while($row = $result->fetch_assoc()) {
                 if ($row["paivamaara"] >= date("Y-m-d")) {
+                    $countLunch += 1;
                     echo "<div class='lounas'>";
                     echo "<h3>".date("l", strtotime($row["paivamaara"])). "</h3>";
                     echo "<h3>".date('d.m.Y', strtotime($row["paivamaara"])) . "</h3>";
@@ -81,6 +83,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
                     echo "Juoma vaihtoehdot:" . "<br>";
                     echo  $row["juomat"]. "<br>";
                     echo "</div>";
+                    if ($countLunch == 7) { break; }
                 }
             }
         } else {
