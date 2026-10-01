@@ -124,7 +124,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
         echo "<div style='width: 60%; margin-left: auto; margin-right: auto;'>";
         if ($result->num_rows > 0) {
             echo "<div style='float: left;'>";
-            echo "<h1>Kuumatjuomat</h1>";
+            echo "<h1>Kuumat juomat</h1>";
             echo "<div class='juomat' style='float: left;'>";
             while($row = $result->fetch_assoc()) {
                 echo "<p style='font-size: 1.8rem;'>".  ucfirst($row["juoma"]) . " " . $row["hinta"] .' €'. "</p>";
@@ -140,7 +140,7 @@ include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             echo "<div style='float: right;'>";
-            echo "<h1>Kylmätjuomat</h1>";
+            echo "<h1>Kylmät juomat</h1>";
             echo "<div class='juomat' style='float: right;'>";
             while($row = $result->fetch_assoc()) {
                 echo "<p style='font-size: 1.8rem;'>". ucfirst($row["juoma"]) . " " . $row["hinta"] .' €' . "</p>";
