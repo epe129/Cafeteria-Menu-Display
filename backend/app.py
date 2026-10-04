@@ -3,11 +3,10 @@ from datetime import timedelta
 from flask import Flask, render_template, request, session, redirect, url_for
 from flask_session import Session
 from flask_wtf import FlaskForm, CSRFProtect
-from wtforms import StringField, SubmitField, PasswordField, IntegerField, DateField, SelectField
+from wtforms import StringField, SubmitField, PasswordField, DecimalField, DateField, SelectField
 from wtforms.validators import DataRequired
 import pymysql
 import bcrypt
-import db_info
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'
@@ -18,8 +17,8 @@ csrf = CSRFProtect(app)
 Session(app)    
 
 # create db connecion
-connection = pymysql.connect(host=db_info.data["HOST"], port=db_info.data["PORT"], 
-user=db_info.data["USER"], password=db_info.data["PASSWORD"], database=db_info.data["DBNIMI"])
+connection = pymysql.connect(host="localhost", port=3306, 
+user="root", password="", database="cafeteriamenudisplay")
 cursor = connection.cursor()
 
 # csrf protected form
@@ -32,7 +31,7 @@ class LoginForm(FlaskForm):
 class AddDrinkForm(FlaskForm):
     """form to juoma add"""
     juoma = StringField('juoma', validators=[DataRequired()])
-    hinta = IntegerField('hinta', validators=[DataRequired()])
+    hinta = DecimalField('hinta', places=2, validators=[DataRequired()], render_kw={"step": "0.01", "min": "0"})
     tyyppi = SelectField('tyyppi',  
         choices=[
             ('kylmajuoma', 'kylmajuoma'),
@@ -47,7 +46,7 @@ class AddFoodForm(FlaskForm):
     ruokalaji = StringField('ruokalaji', validators=[DataRequired()])
     ruoka = StringField('ruoka', validators=[DataRequired()])
     ainekset = StringField('ainekset', validators=[DataRequired()])               
-    hinta = IntegerField('hinta', validators=[DataRequired()])
+    hinta = DecimalField('hinta', places=2, validators=[DataRequired()], render_kw={"step": "0.01", "min": "0"})
     submit = SubmitField('Submit')
 
 class AddLounasForm(FlaskForm):
@@ -163,7 +162,7 @@ def add_food():
             ruoka = request.form.get("ruoka")
             ainekset = request.form.get("ainekset")
             hinta = request.form.get("hinta")
-        cursor.execute("INSERT INTO ruokamenu (ruokalaji, ruoka, ainekset, hinta, tyyppi)  VALUES (%s, %s, %s, %s)", (ruokalaji, ruoka, ainekset, hinta))
+        cursor.execute("INSERT INTO ruokamenu (ruokalaji, ruoka, ainekset, hinta)  VALUES (%s, %s, %s, %s)", (ruokalaji, ruoka, ainekset, hinta))
         connection.commit()
         error_f = "Lisätty onnistuneesti"
     except ImportError:

@@ -3,7 +3,7 @@ left to right direction
 
 entity admin {
   +id : int <<PK>>
-  username : string
+  username : string <<UNIQUE>>
   pword : string
 }
 
@@ -19,22 +19,22 @@ entity ruokamenu {
   +id : int <<PK>>
   ruokalaji : string
   ruoka : string
-  ainekset: string
-  hinta : int
+  ainekset: text
+  hinta : decimal(6,2)
 }
 
 entity juomat {
   +id : int <<PK>>
   juoma : string
-  hinta: int
+  hinta: decimal(6,2)
   tyyppi: string
 }
  
 entity aukioloajat {
   +id : int <<PK>>
   paiva : string
-  kellonaika : datetime
-  paivamaara : datetime
+  kellonaika : string
+  paivamaara : date
 }
  
 @enduml

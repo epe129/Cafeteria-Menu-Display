@@ -3,58 +3,147 @@ Luodaan tietokanta ja taulut.
 pymysql avulla yhdistää tietokantaan.
 db_infosta saa databasen yhdistämiseen tarvittavat tiedot.
 """
+from datetime import date, timedelta
+
 import pymysql
-import db_info
 
 def databasen_luonti():
     """
     Luodaan itse tietokanta jos ei ole olemassa.
     """
-    connection_luonti = pymysql.connect(host=db_info.data["HOST"], port=db_info.data["PORT"],
-    user=db_info.data["USER"], password=db_info.data["PASSWORD"])
-    cursor_luonti = connection_luonti.cursor()
-    cursor_luonti.execute("CREATE DATABASE IF NOT EXISTS cafeteriaMenu")
-
-# luodaan yhteys
-try:
-    databasen_luonti()
-    connection = pymysql.connect(host=db_info.data["HOST"], port=db_info.data["PORT"],
-    user=db_info.data["USER"], password=db_info.data["PASSWORD"], database=db_info.data["DBNIMI"])
-    cursor = connection.cursor()
-except ImportError:
-    print("Yhteyden luominen epäonnistui")
+    connection = pymysql.connect(
+        host="localhost",
+        port=3306,
+        user="root",
+        password="",
+        database="",
+    )
+    try:
+        with connection.cursor() as cursor:
+            database_name = "cafeteriamenudisplay"
+            cursor.execute(
+                f"CREATE DATABASE IF NOT EXISTS `{database_name}` "
+                "CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
+            )
+    finally:
+        connection.close()
 
 def db():
     """
     luodaan tietokannan taulut sekä lisätään arvoja.
     """
+    databasen_luonti()
+    connection = pymysql.connect(
+        host="localhost",
+        port=3306,
+        user="root",
+        password="",
+        database="cafeteriamenudisplay",
+        charset="utf8mb4",
+    )
     try:
-        cursor.execute("CREATE TABLE IF NOT EXISTS admin "
-        "( id INT AUTO_INCREMENT PRIMARY KEY NOT NULL UNIQUE, username VARCHAR(45) NOT NULL, pword VARCHAR(255) NOT NULL);")
+        with connection.cursor() as cursor:
+            cursor.execute(
+                "CREATE TABLE IF NOT EXISTS admin ("
+                "id INT AUTO_INCREMENT PRIMARY KEY, "
+                "username VARCHAR(45) NOT NULL, "
+                "pword VARCHAR(255) NOT NULL, "
+                "CONSTRAINT uq_admin_username UNIQUE (username)"
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
+            )
+            cursor.execute(
+                "CREATE TABLE IF NOT EXISTS viikonlounasRuokamenu ("
+                "id INT AUTO_INCREMENT PRIMARY KEY, "
+                "ruoka VARCHAR(250) NOT NULL, "
+                "paivamaara DATE NOT NULL, "
+                "ainekset TEXT NOT NULL, "
+                "juomat TEXT NOT NULL"
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
+            )
+            cursor.execute(
+                "CREATE TABLE IF NOT EXISTS ruokamenu ("
+                "id INT AUTO_INCREMENT PRIMARY KEY, "
+                "ruokalaji VARCHAR(250) NOT NULL, "
+                "ruoka VARCHAR(250) NOT NULL, "
+                "ainekset TEXT NOT NULL, "
+                "hinta DECIMAL(6, 2) NOT NULL"
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
+            )
+            cursor.execute(
+                "CREATE TABLE IF NOT EXISTS juomat ("
+                "id INT AUTO_INCREMENT PRIMARY KEY, "
+                "juoma VARCHAR(250) NOT NULL, "
+                "hinta DECIMAL(6, 2) NOT NULL, "
+                "tyyppi VARCHAR(250) NOT NULL"
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
+            )
+            cursor.execute(
+                "CREATE TABLE IF NOT EXISTS aukioloajat ("
+                "id INT AUTO_INCREMENT PRIMARY KEY, "
+                "paiva VARCHAR(20) NOT NULL, "
+                "kellonaika VARCHAR(50) NOT NULL, "
+                "paivamaara DATE NOT NULL"
+                ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
+            )
 
-        cursor.execute("CREATE TABLE IF NOT EXISTS viikonlounasRuokamenu"
-        "( id INT AUTO_INCREMENT PRIMARY KEY NOT NULL UNIQUE, ruoka VARCHAR(250), paivamaara date, ainekset VARCHAR(250), juomat VARCHAR(250));")
- 
-        cursor.execute("CREATE TABLE IF NOT EXISTS ruokamenu"
-        "( id INT AUTO_INCREMENT PRIMARY KEY NOT NULL UNIQUE, ruokalaji VARCHAR(250), ruoka VARCHAR(250), ainekset VARCHAR(250), hinta int);")
- 
-        cursor.execute("CREATE TABLE IF NOT EXISTS juomat"
-        "( id INT AUTO_INCREMENT PRIMARY KEY NOT NULL UNIQUE, juoma VARCHAR(250), hinta int, tyyppi VARCHAR(250));")
- 
-        cursor.execute("CREATE TABLE IF NOT EXISTS aukioloajat"
-        "( id INT AUTO_INCREMENT PRIMARY KEY NOT NULL UNIQUE, paiva VARCHAR(250), kellonaika VARCHAR(250), paivamaara datetime);")
-                    
-        cursor.execute('INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) VALUES ("ma", "9-21", "2026-10-05")')
-        cursor.execute('INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) VALUES ("ti", "9-21", "2026-10-06")')
-        cursor.execute('INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) VALUES ("ke", "9-21", "2026-10-07")')
-        cursor.execute('INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) VALUES ("to", "9-21", "2026-10-08")')
-        cursor.execute('INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) VALUES ("pe", "10-21", "2026-10-09")')
-        cursor.execute('INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) VALUES ("la", "8-21", "2026-10-10")')
-        cursor.execute('INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) VALUES ("su", "suljettu", "2026-10-11")')
-        
-        cursor.connection.commit()       
+            cursor.execute(
+                "ALTER TABLE admin MODIFY username VARCHAR(45) NOT NULL"
+            )
+            cursor.execute(
+                "SELECT 1 FROM information_schema.statistics "
+                "WHERE table_schema = DATABASE() AND table_name = 'admin' "
+                "AND index_name = 'uq_admin_username' LIMIT 1"
+            )
+            if cursor.fetchone() is None:
+                cursor.execute(
+                    "CREATE UNIQUE INDEX uq_admin_username ON admin (username)"
+                )
+            cursor.execute(
+                "ALTER TABLE viikonlounasRuokamenu "
+                "MODIFY ruoka VARCHAR(250) NOT NULL, "
+                "MODIFY paivamaara DATE NOT NULL, "
+                "MODIFY ainekset TEXT NOT NULL, "
+                "MODIFY juomat TEXT NOT NULL"
+            )
+            cursor.execute(
+                "ALTER TABLE ruokamenu "
+                "MODIFY ruokalaji VARCHAR(250) NOT NULL, "
+                "MODIFY ruoka VARCHAR(250) NOT NULL, "
+                "MODIFY ainekset TEXT NOT NULL, "
+                "MODIFY hinta DECIMAL(6, 2) NOT NULL"
+            )
+            cursor.execute(
+                "ALTER TABLE juomat "
+                "MODIFY juoma VARCHAR(250) NOT NULL, "
+                "MODIFY hinta DECIMAL(6, 2) NOT NULL, "
+                "MODIFY tyyppi VARCHAR(250) NOT NULL"
+            )
+            cursor.execute(
+                "ALTER TABLE aukioloajat "
+                "MODIFY paiva VARCHAR(20) NOT NULL, "
+                "MODIFY kellonaika VARCHAR(50) NOT NULL, "
+                "MODIFY paivamaara DATE NOT NULL"
+            )
 
-    except ImportError:
-        print("Taulukon luominen epäonnistui")
+            weekday_names = ("ma", "ti", "ke", "to", "pe", "la", "su")
+            weekday_hours = ("9-21", "9-21", "9-21", "9-21", "10-21", "8-21", "suljettu")
+            today = date.today()
+            for day_offset in range(7):
+                opening_date = today + timedelta(days=day_offset)
+                weekday = opening_date.weekday()
+                cursor.execute(
+                    "SELECT 1 FROM aukioloajat WHERE paivamaara = %s LIMIT 1",
+                    (opening_date,),
+                )
+                if cursor.fetchone() is None:
+                    cursor.execute(
+                        "INSERT INTO aukioloajat (paiva, kellonaika, paivamaara) "
+                        "VALUES (%s, %s, %s)",
+                        (weekday_names[weekday], weekday_hours[weekday], opening_date),
+                    )
+
+        connection.commit()
+    finally:
+        connection.close()
         
 db()
