@@ -86,45 +86,6 @@ def db():
                 ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
             )
 
-            cursor.execute(
-                "ALTER TABLE admin MODIFY username VARCHAR(45) NOT NULL"
-            )
-            cursor.execute(
-                "SELECT 1 FROM information_schema.statistics "
-                "WHERE table_schema = DATABASE() AND table_name = 'admin' "
-                "AND index_name = 'uq_admin_username' LIMIT 1"
-            )
-            if cursor.fetchone() is None:
-                cursor.execute(
-                    "CREATE UNIQUE INDEX uq_admin_username ON admin (username)"
-                )
-            cursor.execute(
-                "ALTER TABLE viikonlounasRuokamenu "
-                "MODIFY ruoka VARCHAR(250) NOT NULL, "
-                "MODIFY paivamaara DATE NOT NULL, "
-                "MODIFY ainekset TEXT NOT NULL, "
-                "MODIFY juomat TEXT NOT NULL"
-            )
-            cursor.execute(
-                "ALTER TABLE ruokamenu "
-                "MODIFY ruokalaji VARCHAR(250) NOT NULL, "
-                "MODIFY ruoka VARCHAR(250) NOT NULL, "
-                "MODIFY ainekset TEXT NOT NULL, "
-                "MODIFY hinta DECIMAL(6, 2) NOT NULL"
-            )
-            cursor.execute(
-                "ALTER TABLE juomat "
-                "MODIFY juoma VARCHAR(250) NOT NULL, "
-                "MODIFY hinta DECIMAL(6, 2) NOT NULL, "
-                "MODIFY tyyppi VARCHAR(250) NOT NULL"
-            )
-            cursor.execute(
-                "ALTER TABLE aukioloajat "
-                "MODIFY paiva VARCHAR(20) NOT NULL, "
-                "MODIFY kellonaika VARCHAR(50) NOT NULL, "
-                "MODIFY paivamaara DATE NOT NULL"
-            )
-
             weekday_names = ("ma", "ti", "ke", "to", "pe", "la", "su")
             weekday_hours = ("9-21", "9-21", "9-21", "9-21", "10-21", "8-21", "suljettu")
             today = date.today()

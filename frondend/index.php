@@ -1,6 +1,6 @@
 <?php
-// yhteyden tietokantaan
-include('C:\xampp\htdocs\CafeteriaMenuDisplay\frondend\data\connect_dp.php');
+// Connect to the shared cafeteria database.
+require_once __DIR__ . '/data/connect_dp.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
